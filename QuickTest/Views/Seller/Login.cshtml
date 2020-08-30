@@ -1,0 +1,119 @@
+﻿@model QuickTest.Models.Usertable
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/shared/HomeLayout.cshtml";
+}
+
+@section cssfile{
+    <link href="~/css/style2.css" rel="stylesheet" />
+
+
+    <style>
+
+        @@media only screen and (min-width: 900px) {
+            #forget{
+                margin-left:70px;
+
+            }
+        }
+
+            #createshop {
+                font-size: 15px;
+            }
+
+            #forget {
+                font-size: 15px;
+            }
+
+            @@media only screen and (max-width: 768px) {
+
+
+                #createshop {
+                    font-size: 13px;
+                }
+
+                #forget {
+                    font-size: 13px;
+                }
+            }
+
+
+
+    </style>
+}
+<div class="content-w3ls">
+    <div class="text-center icon">
+        <span class="fa ">login</span>
+    </div>
+    <div class="content-bottom">
+        <form asp-action="loginn" asp-controller="Seller" method="post">
+            <div class="field-group">
+                 <span class="fa fa-phone" aria-hidden="true"></span>
+                <div class="wthree-field">
+                    <input asp-for="PhoneNo"  id="phone" type="text"  placeholder="0333*******" required>
+                    @*<span asp-validation-for="Email" class="text-danger" />*@
+                </div>
+
+            </div>
+            <div class="field-group">
+                <span class="fa fa-lock" aria-hidden="true"></span>
+                <div class="wthree-field">
+                    <input asp-for="Password" id="pass" type="Password" placeholder="Password">
+                    <span asp-validation-for="Password" class="text-danger" />
+                </div>
+                
+            </div>
+            <div class="wthree-field">
+                <span style="color:red;">@ViewBag.error</span>
+                <button type="submit" class="btn">Get Started</button>
+            </div>
+            <br />
+
+            <div class="row">
+
+                <a asp-action="signup2" style="color:white;" class="pull-left col-6 col-lg-5" id="createshop">Create Shop</a>
+                <a href="#" id="forget" style="color:white;"class="pull-right col-6 col-lg-5">forgot password?</a>
+            </div>
+           
+         
+        </form>
+    </div>
+</div>
+@section loginScript{
+    <script>
+
+        function CheckEmail() {
+            //some code
+        }
+
+        $(document).ready(function () {
+            //  alert("ahmed");
+
+            $("#forget").click(function () {
+                var email = $("#phone").val();
+                if (email != '' || email != null) {
+                    $.ajax({
+                        type: "post",
+                        url: "/Seller/forgetpassword",
+                        data: { Email: email },
+                        success: function (data) {
+                            $("").load(data);
+
+                        }
+                    });
+                }else {
+                    alert("Must Enter Email");
+                }
+                
+
+            });
+
+
+
+
+            $("li").removeClass("active");
+            $("a.login").parent("li").addClass("active");
+        });
+    </script>
+}

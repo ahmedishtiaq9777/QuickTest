@@ -1,0 +1,139 @@
+@model IEnumerable<QuickTest.Models.Product>
+
+@{
+    ViewData["Title"] = "templist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Order List</h1>
+
+                </div><!-- /.col -->
+                @*<div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </div>*@<!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+
+    <section class="content">
+        <div class="container-fluid">
+
+            <table class="table table-responsive-sm" id="pro">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Code)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Title)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ProductImage)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.UserId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Category)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Quantity)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.AvgRating)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductImage)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AvgRating)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+</div>
+
+@section scriptscdn{
+    @*<script src="~/css/ltdtheme/bstable.js"></script>
+        <script>
+        var example1 = new BSTable("order");
+            example1.init();
+        </script>*@
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script>
+
+
+
+            $(document).ready(function () {
+                $('#pro').DataTable();
+            });
+
+    </script>
+}
+@section csscdn{
+    @*<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">*@
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+}
+

@@ -1,0 +1,56 @@
+@model QuickTest.Models.Usertable
+
+@{
+  ViewData["Title"] = "TestList";
+    Layout = "~/Views/shared/HomeLayout.cshtml";
+}
+
+<div class="content-w3ls">
+    <div class="text-center icon">
+        <span class="fa fa-html5"></span>
+    </div>
+    <div class="content-bottom">
+        <form asp-action="loginn" asp-controller="Home" method="post">
+            <div class="field-group">
+                <span class="fa fa-user" aria-hidden="true"></span>
+                <div class="wthree-field">
+                    <input asp-for="Email" id="text1" type="email"   value="" placeholder="" required>
+                    <span asp-validation-for="Email" class="text-danger" />
+                </div>
+
+            </div>
+            <div class="field-group">
+                <span class="fa fa-lock" aria-hidden="true"></span>
+                <div class="wthree-field">
+                    <input asp-for="Password" id="myInput" type="Password" placeholder="Password">
+                    <span asp-validation-for="Email" class="text-danger" />
+                </div>
+            </div>
+            <div class="wthree-field">
+                <button type="submit" class="btn">Get Started</button>
+            </div>
+            <ul class="list-login">
+                <li class="switch-agileits">
+                    <label class="switch">
+                        <input type="checkbox">
+                        <span class="slider round"></span>
+                        keep Logged in
+                    </label>
+                </li>
+                <li>
+                    <a href="#" class="text-right">forgot password?</a>
+                </li>
+                <li class="clearfix"></li>
+            </ul>
+            <ul class="list-login-bottom">
+                <li class="">
+                    <a href="#" class="">Create Account</a>
+                </li>
+                <li class="">
+                    <a href="#" class="text-right">Need Help?</a>
+                </li>
+                <li class="clearfix"></li>
+            </ul>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+ 
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <environment names="Development">
+
+
+
+        <!-- <<Attched Stylesheets>> -->
+        <link rel="stylesheet" href="~/css/homepage/css/theme.css" type="text/css" />
+        <link rel="stylesheet" href="~/css/homepage/css/media.css" type="text/css" />
+        <link rel="stylesheet" href="~/css/homepage/css/font-awesome.min.css" type="text/css" />
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,600italic,400italic,800,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+
+
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link href="~/css/style2.css" rel="stylesheet" />
+
+
+
+        @RenderSection("css", required: false)
+
+
+
+
+
+
+
+    </environment>
+</head>
+<body>
+
+
+    <div class="DesignHolder">
+        <!-- \\ Begin Frame \\ -->
+        <div class="LayoutFrame">
+            <!-- \\ Begin Header \\ -->
+            @if (ViewBag.key== "1")
+            {
+                @Html.Partial("Homeheader_2")
+            }
+            else
+            {
+
+            @Html.Partial("HomeHeader_1")
+            }
+
+            @RenderBody()
+            <div id="loader-wrapper">
+                <div id="loader"></div>
+
+                <div class="loader-section section-left"></div>
+                <div class="loader-section section-right"></div>
+
+            </div>
+        </div>
+    </div>
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+
+    </div>
+
+    <environment names="Development">
+
+        <script type="text/javascript" src="~/css/homepage/js/jquery-1.11.0.min.js"></script>
+        <script type="text/javascript" src="/css/homepage/js/jquery.sudoSlider.min.js"></script>
+        <script type="text/javascript" src="/css/homepage/js/global.js"></script>
+        <script type="text/javascript" src="/css/homepage/js/modernizr.js"></script>
+        @RenderSection("script", required: false)
+        @RenderSection("mapscript", required: false)
+    </environment>
+
+</body>
+</html>

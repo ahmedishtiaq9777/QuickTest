@@ -1,0 +1,12 @@
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Debug\netcoreapp1.0\QuickTest.deps.json
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Debug\netcoreapp1.0\QuickTest.runtimeconfig.json
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Debug\netcoreapp1.0\QuickTest.runtimeconfig.dev.json
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Debug\netcoreapp1.0\QuickTest.dll
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Debug\netcoreapp1.0\QuickTest.pdb
+D:\Visual studio 2017\QuickTest\QuickTest\obj\Debug\netcoreapp1.0\QuickTest.csprojAssemblyReference.cache
+D:\Visual studio 2017\QuickTest\QuickTest\obj\Debug\netcoreapp1.0\QuickTest.csproj.CoreCompileInputs.cache
+D:\Visual studio 2017\QuickTest\QuickTest\obj\Debug\netcoreapp1.0\QuickTest.AssemblyInfoInputs.cache
+D:\Visual studio 2017\QuickTest\QuickTest\obj\Debug\netcoreapp1.0\QuickTest.AssemblyInfo.cs
+D:\Visual studio 2017\QuickTest\QuickTest\obj\Debug\netcoreapp1.0\QuickTest.dll
+D:\Visual studio 2017\QuickTest\QuickTest\obj\Debug\netcoreapp1.0\QuickTest.pdb
+D:\Visual studio 2017\QuickTest\QuickTest\obj\Debug\netcoreapp1.0\UserSecretsAssemblyInfo.cs

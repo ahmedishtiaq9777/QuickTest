@@ -1,0 +1,161 @@
+@model QuickTest.Models.Product
+@{
+    ViewData["Title"] = "EditProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EditProduct</h2>
+
+
+<div class="content-wrapper">
+    <section class="content">
+
+        <div class="container-fluid">
+            <form asp-controller="Seller" asp-action="Editproduct" method="post" enctype="multipart/form-data">
+                <div class="form-horizontal">
+                    <input type="hidden" asp-for="ProductId" class="form-control" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                    <div class="form-group">
+                        <label asp-for="Title" class="col-md-2 control-label"></label>
+                        <div class="col-md-3">
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Code" class="col-md-2 control-label"></label>
+                        <div class="col-md-3">
+                            <input asp-for="Code" class="form-control" />
+                            <span asp-validation-for="Code" class="text-danger" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="col-md-2 control-label"></label>
+                        <div class="col-md-3">
+                            <textarea asp-for="Description" rows="4" cols="100"></textarea>
+                            <span asp-validation-for="Description" class="text-danger" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Price" class="col-md-2 control-label"></label>
+                        <div class="col-md-3">
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ProductImage" class="col-md-2 control-label"></label>
+                        <div class="col-md-3">
+                            <input asp-for="ProductImage" type="file" id="img" name="img" class="form-control" />
+
+                            <span asp-validation-for="ProductImage" class="text-danger" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Category" class="col-md-2 control-label"></label>
+                        <div class="col-md-3">
+                            <select asp-for="Category" class="form-control">
+                                <optgroup label="Men" class="col-xs-12">
+                                    <option value="MenPolos">Polos</option>
+                                    <option value="MenShirts">Shirts</option>
+                                    <option value="MenTshirts">Tshirts</option>
+                                    <option value="MenDenim">DENIM</option>
+                                    <option value="MenNonDenim">NoN DENIM</option>
+                                    <option value="MenSweater">SWEATER</option>
+                                    <option value="MenCout">COUT</option>
+                                    <option value="MenUpper">UPPER</option>
+                                    <option value="MenJacket">JACKET</option>
+                                    <option value="MenShoes">SHOES</option>
+                                    <option value="MenBags">BAGS</option>
+                                </optgroup>
+                                <optgroup label="Women" class="col-xs-12">
+                                    <option value="WomenTops">Tops</option>
+                                    <option value="WomenBottom">Bottom</option>
+                                    <option value="WomenShowls">Showls</option>
+                                    <option value="WomenSweater">SWEATER</option>
+                                    <option value="WomenCout">COUT</option>
+                                    <option value="WomenUpper">UPPER</option>
+                                    <option value="WomenJacket">jACKET</option>
+                                    <option value="WomenShoes">SHOES</option>
+                                    <option value="WomenBags">BAGS</option>
+                                </optgroup>
+                                <optgroup label="boyKids(1-5)year" class="col-xs-12">
+                                    <option value="boyKids(1-5)Shirts">Shirts</option>
+                                    <option value="boyKids(1-5)Tshirts">Tshirts</option>
+                                    <option value="boyKids(1-5)Bottom">Bottom</option>
+                                    <option value="boyKids(1-5)Sweater">SWEATER</option>
+                                    <option value="boyKids(1-5)Cout">COUT</option>
+                                    <option value="boyKids(1-5)Upper">UPPER</option>
+                                    <option value="boyKids(1-5)Jacket">jACKET</option>
+                                    <option value="boyKids(1-5)Shoes">SHOES & Accessaries</option>
+
+                                </optgroup>
+                                <optgroup label="boyKids(6-12)year" class="col-xs-12">
+                                    <option value="boyKids(6-12)Shirts">Shirts</option>
+                                    <option value="boyKids(6-12)Tshirts">Tshirts</option>
+                                    <option value="boyKids(6-12)Bottom">Bottom</option>
+                                    <option value="boyKids(6-12)Sweater">SWEATER</option>
+                                    <option value="boyKids(6-12)Cout">COUT</option>
+                                    <option value="boyKids(6-12)Upper">UPPER</option>
+                                    <option value="boyKids(6-12)Jacket">jACKET</option>
+                                    <option value="boyKids(6-12)Shoes">SHOES</option>
+
+                                </optgroup>
+
+                                <optgroup label="GirlKids(1-5)year" class="col-xs-12">
+                                    <option value="GirlKids(1-5)Tops">Tops</option>
+                                    <option value="GirlKids(1-5)Bottom">Bottom</option>
+                                    <option value="GirlKids(1-5)Tees">Tees</option>
+                                    <option value="GirlKids(1-5)Sweater">SWEATER</option>
+                                    <option value="GirlKids(1-5)Cout">COUT</option>
+                                    <option value="GirlKids(1-5)Upper">UPPER</option>
+                                    <option value="GirlKids(1-5)Jacket">jACKET</option>
+                                    <option value="GirlKids(1-5)Shoes">SHOES</option>
+
+                                </optgroup>
+
+                                <optgroup label="GirlKids(6-12)year" class="col-xs-12">
+                                    <option value="Girlkids(6-12)top">Tops</option>
+                                    <option value="Girlkids(6-12)Bottom">Bottom</option>
+                                    <option value="GirlKids(6-12)Tees">Tees</option>
+                                    <option value="GirlKids(6-12)Sweater">SWEATER</option>
+                                    <option value="GirlKids(6-12)Cout">COUT</option>
+                                    <option value="GirlKids(6-12)Upper">UPPER</option>
+                                    <option value="GirlKids(6-12)Jacket">jACKET</option>
+                                    <option value="GirlKids(6-12)Shoes">SHOES</option>
+
+                                </optgroup>
+
+
+                            </select>
+
+                            <span asp-validation-for="Category" class="text-danger" />
+                        </div>
+
+                    </div>
+
+
+                    @*<div class="form-group">
+                            <label asp-for="Type" class="col-md-2 control-label"></label>
+                            <div class="col-md-3">
+                                <select asp-for="Type" class="form-control">
+                                    <option>Shirt</option>
+                                    <option>Pent</option>
+                                    <option>Shoes</option>
+                                </select>
+                                <span asp-validation-for="Type" class="text-danger" />
+                            </div>
+                        </div>*@
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="EDIT" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    </div>

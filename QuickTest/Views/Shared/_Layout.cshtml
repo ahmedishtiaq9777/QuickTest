@@ -1,0 +1,191 @@
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - QuickTest</title>
+
+
+    <environment names="Development">
+
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>AdminLTE 3 | Dashboard</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="~/css/ltdtheme/plugins/fontawesome-free/css/all.min.css">
+        <!-- Ionicons -->
+        <!-- Tempusdominus Bbootstrap 4 -->
+        <link rel="stylesheet" href="~/css/ltdtheme/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+        <!-- iCheck -->
+        <link rel="stylesheet" href="~/css/ltdtheme/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+        <!-- JQVMap -->
+        @*<link rel="stylesheet" href="~/css/ltdtheme/plugins/jqvmap/jqvmap.min.css">*@
+        <!-- Theme style -->
+        <link rel="stylesheet" href="~/css/ltdtheme/dist/css/adminlte.min.css">
+        <!-- overlayScrollbars -->
+        @*<link rel="stylesheet" href="~/css/ltdtheme/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">*@
+        <!-- Daterange picker -->
+        @*<link rel="stylesheet" href="~/css/ltdtheme/plugins/daterangepicker/daterangepicker.css">*@
+        <!-- summernote -->
+        <link rel="stylesheet" href="~/css/ltdtheme/plugins/summernote/summernote-bs4.css">
+        <!-- Google Font: Source Sans Pro -->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+        @RenderSection("css", required: false)
+        @RenderSection("csscdn", required: false)
+    </environment>
+
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+       
+        
+    </environment>
+
+
+
+
+
+    @Html.Raw(JavaScriptSnippet.FullScript)
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        @Html.Partial("_Header")
+        @Html.Partial("_Sidebar")
+        @RenderBody()
+        @Html.Partial("_Footer")
+        @Html.Partial("_Aside")
+        <!-- Add the sidebar's background. This div must be placed
+        immediately after the control sidebar -->
+        
+    </div>
+    <environment names="Development">
+
+        <!-- jQuery -->
+        <script src="~/css/ltdtheme/plugins/jquery/jquery.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="~/css/ltdtheme/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+        </script>
+        <!-- Bootstrap 4 -->
+        <script src="~/css/ltdtheme/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="~/css/ltdtheme/plugins/chart.js/Chart.min.js"></script>
+        <!-- Sparkline -->
+        @*<script src="~/css/ltdtheme/plugins/sparklines/sparkline.js"></script>*@
+        <!-- JQVMap -->
+        @*<script src="~/css/ltdtheme/plugins/jqvmap/jquery.vmap.min.js"></script>
+        <script src="~/css/ltdtheme/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>*@
+        <!-- jQuery Knob Chart -->
+        <script src="~/css/ltdtheme/plugins/jquery-knob/jquery.knob.min.js"></script>
+        <!-- daterangepicker -->
+        <script src="~/css/ltdtheme/plugins/moment/moment.min.js"></script>
+        @*<script src="~/css/ltdtheme/plugins/daterangepicker/daterangepicker.js"></script>*@
+        <!-- Tempusdominus Bootstrap 4 -->
+        <script src="~/css/ltdtheme/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+        <!-- Summernote -->
+        <script src="~/css/ltdtheme/plugins/summernote/summernote-bs4.min.js"></script>
+        <!-- overlayScrollbars -->
+        @*<script src="~/css/ltdtheme/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>*@
+        <!-- AdminLTE App -->
+        <script src="~/css/ltdtheme/dist/js/adminlte.js"></script>
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+        <script src="~/css/ltdtheme/dist/js/pages/dashboard.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="~/css/ltdtheme/dist/js/demo.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        @RenderSection("scriptscdn", required: false);
+        <script>
+
+
+
+            $(document).ready(function () {
+
+
+
+                $("#ordersicon,#ordertext,#iconn").click(function () {
+
+
+
+
+
+                    $.ajax({
+
+                        type: "get",
+                        url: "/Seller/returnOrders/",
+
+                        success: function (data) {
+                            $("#ordersdrop").html(data);
+
+
+
+
+
+
+                        }
+                    });
+
+
+                });
+
+
+                
+
+                //$(".wrapper").find("#allpro").click(function () {
+                   
+                //    var allpro = $(".wrapper").find("#allpro2");
+                //    var sidebar = $(".wrapper").find(".sidebar");
+                    
+                //    var alreadyselected = sidebar.find(".active");
+                //   // var ht = alreadyselected.html();
+                //   // alert(ht);
+                //    alreadyselected.removeClass("active");
+                //    allpro.addClass("active");
+                // //   alert("ahmed2");
+                    
+
+
+
+
+                //});
+                //$(".wrapper").find("#dash").click(function () {
+
+                //    var dash = $(".wrapper").find("#dash2");
+                //  //  var ht = dash.html();
+                //   // alert(ht);
+                //    var sidebar = $(".wrapper").find(".sidebar");
+                    
+                   
+                //    var alreadyselected = sidebar.find(".active");
+                //   // var ht2 = alreadyselected.html();
+                //    //alert(ht2);
+                // //   alert(alreadyselected.html());////////
+                //    alreadyselected.removeClass("active");
+                //    dash.addClass("active");
+
+
+
+                //});
+
+
+
+
+            });
+
+
+
+        </script>
+        @RenderSection("scripts", required: false)
+    </environment>
+
+
+    
+</body>
+
+
+
+</html>

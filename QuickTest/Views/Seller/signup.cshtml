@@ -1,0 +1,161 @@
+@{
+    ViewData["Title"] = "New Shop";
+    Layout = "~/Views/shared/HomeLayout2.cshtml";
+    ViewBag.mes = "1";
+}
+@section css{
+    <style>
+        #success_message {
+            display: none;
+        }
+        #login2 {
+            margin-left:320px;
+        }
+        @@media only screen and (max-width: 768px) {
+            #login2 {
+                margin-left: 20px;
+            }
+            #headlogin{
+
+                margin-left:70px;
+            }
+        
+        }
+    </style>
+
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+}
+<div class="Contact_sec" id="login" style="width:100%;background-color:aqua;">
+
+
+
+
+    <!-- \\ Begin Get Section \\ -->
+    <div class="Get_sec">
+
+        <div class="Mid" style="margin-top:50px;">
+            <!-- \\ Begin Left Side \\ -->
+            <div class="content-bottom  col-lg-6" id="login2" >
+                <h2 id="headlogin"> New Shop</h2>
+                <br />
+                <form id="form1" method="post">
+
+                    <div class="field-group">
+                        @*<span class="fa fa-user" aria-hidden="true"></span>*@
+                        <span style="color:lightgray;">+92</span>
+                        <div class="wthree-field">
+
+                            <input name="number" id="text1" type="tel" pattern="[0-9]{10}" placeholder="3336776656" required>
+
+                        </div>
+                        @*<img id="img1" src="~/images/interface.png" style="width:30px;height:30px; padding-top:10px;"  >*@
+                    </div>
+                    <div class="field-group">
+                        @*<span class="fa fa-user" aria-hidden="true"></span>*@
+                        <span style="color:lightgray;">code</span>
+                        <div class="wthree-field">
+
+                            <input name="number" id="text1" type="tel"  placeholder="Enter code" required>
+
+                        </div>
+                        @*<img id="img1" src="~/images/interface.png" style="width:30px;height:30px; padding-top:10px;"  >*@
+                    </div>
+                    @*<span asp-validation-for="PhoneNo" class="text-danger"></span>*@
+                    <span id="error" style="color:aliceblue;"></span>
+
+
+                    @*<div class="field-group">
+            <span class="fa fa-lock" aria-hidden="true"></span>
+            <div class="wthree-field">
+                <input name="password" id="myInput" type="Password" placeholder="Password">
+            </div>
+        </div>*@
+                    <div class="wthree-field">
+                        <button id="sendcode" class="btn">Verify code</button>
+                    </div>
+                    <br />
+                    @*<div class="field-group">
+            <span class="fa fa-user" aria-hidden="true"></span>
+            <div class="wthree-field">
+                <input name="text1" id="code" type="text" value="" placeholder="Enter Code" >
+            </div>
+        </div>*@
+                    @*<ul class="list-login">
+            <li class="switch-agileits">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                    keep Logged in
+                </label>
+            </li>
+            <li>
+                <a href="#" class="text-right">forgot password?</a>
+            </li>
+            <li class="clearfix"></li>
+        </ul>
+        <ul class="list-login-bottom">
+            <li class="">
+                <a href="#" class="">Create Account</a>
+            </li>
+            <li class="">
+                <a href="#" class="text-right">Need Help?</a>
+            </li>
+            <li class="clearfix"></li>
+        </ul>*@
+                </form>
+
+            </div>
+            <!-- // End Left Side // -->
+            <!-- \\ Begin Right Side \\ -->
+            @*<div class="Rightside">
+                    <h3>Get in touch !</h3>
+                    <address>
+                        990 Proin Gravida Street, Aliquet Snean Tate,<br>Lincoln Way, San Francisco, California.
+                    </address>
+                    <address class="Number">
+                        (+001) 001 002 0034, (+002) 009 008 0760<br>(+003) 456 050 0670
+                    </address>
+                    <address class="Email">
+                        <a href="mailto:info@november.com">info@november.com</a>
+                    </address>
+                    <div class="clear"></div>
+                    <ul>
+                        <li>
+                            <a rel="nofollow" href="http://www.facebook.com/templatemo"
+                               target="_parent"><img src="~/css/homepage/img/facebook-icn.png" alt="image"></a>
+                        </li>
+                        <li><a href="#"><img src="~/css/homepage/img/twitter-icn.png" alt="image"></a></li>
+                        <li><a href="#"><img src="~/css/homepage/img/google-plus-icn.png" alt="image"></a></li>
+                    </ul>
+                </div>*@
+            <!-- // End Right Side // -->
+        </div>
+        <!-- \\ Begin Footer \\-->
+        <footer>
+            <div class="Cntr">
+                <p>Home Page </p>
+            </div>
+        </footer>
+        <!-- // End Footer // -->
+    </div>
+    <!-- // End Get Section // -->
+
+</div>
+
+
+@section script{
+
+
+    
+<script>
+    
+    var li = $(".LayoutFrame").find(".active");
+    li.removeClass("active");
+    var signupli = $("#signupli");
+    signupli.addClass("active");
+</script>
+                          
+
+
+   
+    }

@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <environment names="Development">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        @*<link href="~/css/bootstrap.css" rel="stylesheet" />*@
+        @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+        asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+        asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
+        @RenderSection("cssfile", required: false)
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.0/css/all.min.css" integrity="sha256-auSD6WsicI+oJhpUgntiZeIHFg0Vz0mYHrERIp079QU=" crossorigin="anonymous" />
+
+        @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
+        <link href="//fonts.googleapis.com/css?family=Quattrocento+Sans:400,400i,700,700i" rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800" rel="stylesheet">
+        <style type="text/css">
+            input {
+                opacity: 1;
+            }
+        </style>
+
+    </environment>
+    @Html.Raw(JavaScriptSnippet.FullScript)
+    @*@{
+
+            if (ViewData["Title"].Equals("Login"))
+            {
+               <style>
+
+               </style>
+            }
+        }*@
+
+
+</head>
+<body>
+    <section class="main">
+        <div class="layer">
+         
+            @RenderBody()
+           
+            
+        </div>
+
+        
+    </section>
+    <environment names="Development">
+        
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+                integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+                crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        @*<script src="~/js/bootstrap.js"></script>*@
+        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.0/js/all.min.js" integrity="sha256-bWERjpvxXB3TWetiZKmZWrybM8qlh4iWv1u25eO64NM=" crossorigin="anonymous"></script>*@
+        <script>
+            addEventListener("load", function () {
+                setTimeout(hideURLbar, 0);
+            }, false);
+
+            function hideURLbar() {
+                window.scrollTo(0, 1);
+            }
+        </script>
+        @RenderSection("loginScript", required: false)
+
+        @RenderSection("SignupScript", required: false)
+        @RenderSection("AboutScript", required: false)
+        @RenderSection("Contactsaction", required: false)
+        @RenderSection("mapscript", required: false)
+
+    </environment>
+    @Html.Partial("_ValidationScriptsPartial.cshtml")
+</body>
+</html>

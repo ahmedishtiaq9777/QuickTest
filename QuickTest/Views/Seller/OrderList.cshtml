@@ -1,0 +1,137 @@
+@model IEnumerable<QuickTest.Models.SellerViewModels.OrderViewModel>
+
+@{
+    ViewData["Title"] = "OrderList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Order List</h1>
+
+                </div><!-- /.col -->
+                @*<div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </div>*@<!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+
+    <section class="content">
+        <div class="container-fluid">
+            <table class="table table-responsive-sm display" id="order">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Orderid)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.userid)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.user_name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.phone)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.address)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.total)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.status)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.orderdate)
+                        </th>
+                        <th>@Html.DisplayNameFor(model=>model.products)</th>
+                        <th>Actions</th>
+
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                #@Html.DisplayFor(modelItem => item.Orderid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.userid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.total)
+                            </td>
+                            
+                            <td>
+                                @Html.DisplayFor(modelItem => item.status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.orderdate)
+                            </td>
+                            <td>@for(int i=0;i<item.products.Count();i++){ <a class="btn-primary" href="#"> @item.products[i].title</a>}</td>
+
+
+
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })<br/>
+                                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+@section scriptscdn{
+    @*<script src="~/css/ltdtheme/bstable.js"></script>
+    <script>
+    var example1 = new BSTable("order");
+        example1.init();
+    </script>*@
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+        <script>
+
+
+
+            $(document).ready(function () {
+                $('#order').DataTable();
+            });
+
+    </script>
+}
+@section csscdn{
+    @*<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">*@
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+}

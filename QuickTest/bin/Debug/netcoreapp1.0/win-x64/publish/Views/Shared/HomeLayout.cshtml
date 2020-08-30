@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <environment names="Development">
+
+
+        <link href="~/css/bootstrap.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link href="~/css/style.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="//fonts.googleapis.com/css?family=Quattrocento+Sans:400,400i,700,700i" rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Mukta:200,300,400,500,600,700,800" rel="stylesheet">
+        <style type="text/css">
+            input {
+                background-color:aqua;
+                opacity: 1; /* Firefox */
+            }
+        </style>
+
+    </environment>
+    @*@{ 
+
+        if (ViewData["Title"].Equals("Login"))
+        {
+           <style>
+
+           </style>
+        }
+    }*@
+   
+    
+</head>
+<body>
+    <section class="main">
+        <div class="layer">
+            @Html.Partial("header_partial")
+            @RenderBody()
+        </div>
+
+        
+    </section>
+    <environment names="Development">
+
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+                integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+                crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+
+        <script src="~/js/bootstrap.js"></script>
+        <script>
+            addEventListener("load", function () {
+                setTimeout(hideURLbar, 0);
+            }, false);
+
+            function hideURLbar() {
+                window.scrollTo(0, 1);
+            }
+        </script>
+        @RenderSection("loginScript", required: false)
+
+        @RenderSection("SignupScript",required:false)
+        @RenderSection("AboutScript",required:false)
+        @RenderSection("Contactsaction",required:false)
+
+    </environment>
+</body>
+</html>

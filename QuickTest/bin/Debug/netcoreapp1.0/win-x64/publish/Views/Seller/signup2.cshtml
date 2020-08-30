@@ -1,0 +1,127 @@
+@model QuickTest.Models.Usertable
+
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/shared/HomeLayout.cshtml";
+}
+
+
+<div class="content-w3ls">
+    <div class="text-center icon">
+        <span class="fa fa-html5"></span>
+        <h2 style="color:white;margin-top:30px;padding-top:0px;" class="text-center">  Enter Your Number  and Press SendCode</h2>
+    </div>
+   
+    <div class="content-bottom">
+
+        <form  id="form1" method="post">
+
+            <div class="field-group">
+                @*<span class="fa fa-user" aria-hidden="true"></span>*@
+                <span style="color:lightgray;">+92</span>
+                <div class="wthree-field">
+                   
+                    <input name="number"  id="text1"  type="tel" pattern="[0-9]{10}" placeholder="3336776656" required>
+
+                </div>
+                @*<img id="img1" src="~/images/interface.png" style="width:30px;height:30px; padding-top:10px;"  >*@
+            </div>
+            @*<span asp-validation-for="PhoneNo" class="text-danger"></span>*@
+                <span id="error" style="color:aliceblue;"></span>
+
+
+            @*<div class="field-group">
+                    <span class="fa fa-lock" aria-hidden="true"></span>
+                    <div class="wthree-field">
+                        <input name="password" id="myInput" type="Password" placeholder="Password">
+                    </div>
+                </div>*@
+            <div class="wthree-field">
+                <button id="sendcode"  class="btn">Send Code</button>
+            </div>
+            <br />
+            @*<div class="field-group">
+                    <span class="fa fa-user" aria-hidden="true"></span>
+                    <div class="wthree-field">
+                        <input name="text1" id="code" type="text" value="" placeholder="Enter Code" >
+                    </div>
+                </div>*@
+            @*<ul class="list-login">
+                    <li class="switch-agileits">
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                            keep Logged in
+                        </label>
+                    </li>
+                    <li>
+                        <a href="#" class="text-right">forgot password?</a>
+                    </li>
+                    <li class="clearfix"></li>
+                </ul>
+                <ul class="list-login-bottom">
+                    <li class="">
+                        <a href="#" class="">Create Account</a>
+                    </li>
+                    <li class="">
+                        <a href="#" class="text-right">Need Help?</a>
+                    </li>
+                    <li class="clearfix"></li>
+                </ul>*@
+        </form>
+    </div>
+</div>
+@section SignupScript{
+<script>
+    $(document).ready(function () {
+       // alert("ahmed1");
+        $("li").removeClass("active");
+        $("a.register").parent("li").addClass("active");
+       // var s = '@ViewBag.error';
+      //  alert(s);
+        //if (s == "7") {
+        //    alert("Please Enter Valid Phone Number");
+        //}
+       // alert("ahmad2");
+
+        $("#form1").submit(function (e) {
+            e.preventDefault();
+            var n = $("input#text1").val();
+            alert(n);
+
+
+
+            $.ajax({
+                type: "post",
+                url: "/Seller/Signup2/",
+                contentType: "application/json; charset=utf-8",
+                data: { number: n },
+                success: function (data) {
+                    alert(data);
+
+                    // if (data == "ok")
+                    //$("#error").html(data.result);
+                    //$("#update").html("Result: " + data.result);
+
+                }
+
+            });
+
+
+
+        });
+
+       
+          //  alert("ahmed3");
+           
+
+
+      
+
+           
+
+       
+    });
+</script>
+
+    }

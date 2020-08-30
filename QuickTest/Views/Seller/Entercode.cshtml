@@ -1,0 +1,77 @@
+
+@{
+    ViewData["Title"] = "Entercode";
+    Layout = "~/Views/Shared/HomeLayout2.cshtml";
+}
+}
+<div class="Contact_sec" id="login" style="width:100%;background-color:aqua;">
+
+
+
+
+    <!-- \\ Begin Get Section \\ -->
+    <div class="Get_sec">
+
+        <div class="Mid" style="margin-top:50px;">
+            <div class="content-w3ls">
+                <form asp-action="Entercode" asp-controller="Seller" method="post">
+                    <h3 style="color:white;text-align:center;"> Verification Code</h3>
+                    <div class="field-group" style="">
+                        @*<span class="fa fa-user" aria-hidden="true"></span>*@
+                        <span style="color:lightgray;">+92</span>
+                        <div class="wthree-field">
+
+                            <input name="code" id="code" placeholder="Enter Code" required>
+
+                        </div>
+                        @*<img id="img1" src="~/images/interface.png" style="width:30px;height:30px; padding-top:10px;"  >*@
+                    </div>
+                    @*<span asp-validation-for="PhoneNo" class="text-danger"></span>*@
+                    <span id="error" style="color:aliceblue;"></span>
+
+
+                    @*<div class="field-group">
+                            <span class="fa fa-lock" aria-hidden="true"></span>
+                            <div class="wthree-field">
+                                <input name="password" id="myInput" type="Password" placeholder="Password">
+                            </div>
+                        </div>*@
+                    <div class="wthree-field">
+                        <button id="submitcode" type="submit" class="btn">Submit</button>
+                    </div>
+                    <br />
+                    @*<div class="field-group">
+                            <span class="fa fa-user" aria-hidden="true"></span>
+                            <div class="wthree-field">
+                                <input name="text1" id="code" type="text" value="" placeholder="Enter Code" >
+                            </div>
+                        </div>*@
+                    @*<ul class="list-login">
+                            <li class="switch-agileits">
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                    keep Logged in
+                                </label>
+                            </li>
+                            <li>
+                                <a href="#" class="text-right">forgot password?</a>
+                            </li>
+                            <li class="clearfix"></li>
+                        </ul>
+                        <ul class="list-login-bottom">
+                            <li class="">
+                                <a href="#" class="">Create Account</a>
+                            </li>
+                            <li class="">
+                                <a href="#" class="text-right">Need Help?</a>
+                            </li>
+                            <li class="clearfix"></li>
+                        </ul>*@
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+
+

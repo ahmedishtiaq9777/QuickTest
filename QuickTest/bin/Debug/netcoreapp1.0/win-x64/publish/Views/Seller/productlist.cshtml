@@ -1,0 +1,76 @@
+@model IEnumerable<QuickTest.Models.Product>
+
+@{
+    ViewData["Title"] = "productlist";
+  //  Layout = "/Views/shared/_Layout.cshtml";
+}
+<body>
+    <head>
+        <link href="~/css/bootstrap.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <h2>productlist</h2>
+    <p>
+        <a asp-action="Upload">Add new</a>
+    </p>
+    <div class="container">
+        <div class=" col-lg-12">
+            @foreach (Product p in Model)
+            {
+                <div class="col-md-3 col-sm-4">
+                    <div class="thumbnail store style1">
+                        <div class="header">
+                            <div class="badges">
+                                <span class="product-badge top left primary-background text-white semi-circle">Rating</span>
+                                <span class="product-badge top right text-warning">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                </span>
+                            </div>
+                            <figure>
+                                <a>
+                                    <img src="@p.ProductImage" alt="">
+
+                                </a>
+                            </figure>
+                            @*<div class="icons">
+                                    <a class="icon semi-circle" href="javascript:void(0);"><i class="fa fa-heart-o"></i></a>
+                                    <a class="icon semi-circle" href="javascript:void(0);"><i class="fa fa-gift"></i></a>
+                                    <a class="icon semi-circle" href="javascript:void(0);" data-toggle="modal" data-target=".productQuickView"><i class="fa fa-search"></i></a>
+                                </div>*@
+                        </div>
+                        <div class="caption">
+                            <h6 class="regular"><a href="#">@p.Title</a></h6>
+                            <div class="price">
+
+                                <small class="amount text-primary">@p.Price</small>
+
+
+
+                            </div>
+
+                            <a href="/Home/Deleteproduct?proid=@p.ProductId">Delete</a>
+                            <a href="">Edit</a>
+
+
+                        </div><!-- end caption -->
+                    </div><!-- end thumbnail -->
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/bootstrap.js"></script>
+
+</body>
