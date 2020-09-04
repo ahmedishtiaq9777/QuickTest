@@ -1271,23 +1271,16 @@ namespace QuickTest.Controllers
         { 
             try
             {
-                Usertable e2 = db.Usertable.Where(a => a.Email == e.Email && a.Password == e.Password).SingleOrDefault();
+                Usertable e2 = db.Usertable.Where(a => a.PhoneNo == e.PhoneNo && a.Password == e.Password).SingleOrDefault();
                 if (e2 != null)
                 {
-                    if (e2.UserType.Equals("C"))
-                    {
+                  
                        
                         loginModelAndroid obj = new loginModelAndroid();
                         obj.userid = e2.UserId;
                         obj.result = "success";
                         return Json(obj);
-                    }else 
-                    {
-                        loginModelAndroid obj2 = new loginModelAndroid();
-                        obj2.result = "sellersuccess";
-                        obj2.userid = 0;
-                        return Json(obj2);
-                    }
+                    
                     
                    
                        //IList<Product> items= db.Product.Where(a => a.UserId == e2.UserId).ToList();

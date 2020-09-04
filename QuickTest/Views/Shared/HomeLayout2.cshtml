@@ -14,13 +14,25 @@
         <!-- <<Attched Stylesheets>> -->
         <link rel="stylesheet" href="~/css/homepage/css/theme.css" type="text/css" />
         <link rel="stylesheet" href="~/css/homepage/css/media.css" type="text/css" />
-        <link rel="stylesheet" href="~/css/homepage/css/font-awesome.min.css" type="text/css" />
+        @*<link rel="stylesheet" href="~/css/homepage/css/font-awesome.min.css" type="text/css" />*@
+        @*<link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="~/font-awesome/css/font-awesome.css" rel="stylesheet" />*@
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.0/css/all.min.css" integrity="sha256-auSD6WsicI+oJhpUgntiZeIHFg0Vz0mYHrERIp079QU=" crossorigin="anonymous" />
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,600italic,400italic,800,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
 
+        @if (ViewBag.key != "2")
+        {
+            <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
+                  asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        }
 
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+        @if (ViewBag.key == "2")
+        {
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            
+        }
         <link href="~/css/style2.css" rel="stylesheet" />
 
 
@@ -36,49 +48,73 @@
     </environment>
 </head>
 <body>
+    @*   1 means signup form 2 means   *@
+    @if (ViewBag.key != "1" && ViewBag.key!="2")
+    {
+        <div class="DesignHolder">
+            <!-- \\ Begin Frame \\ -->
+            <div class="LayoutFrame">
+
+                <!-- \\ Begin Header \\ -->
 
 
-    <div class="DesignHolder">
-        <!-- \\ Begin Frame \\ -->
-        <div class="LayoutFrame">
-            <!-- \\ Begin Header \\ -->
-            @if (ViewBag.key== "1")
-            {
-                @Html.Partial("Homeheader_2")
-            }
-            else
-            {
+                @Html.Partial("HomeHeader_1")
 
-            @Html.Partial("HomeHeader_1")
-            }
 
-            @RenderBody()
-            <div id="loader-wrapper">
-                <div id="loader"></div>
+                @RenderBody()
+                <div id="loader-wrapper">
+                    <div id="loader"></div>
 
-                <div class="loader-section section-left"></div>
-                <div class="loader-section section-right"></div>
+                    <div class="loader-section section-left"></div>
+                    <div class="loader-section section-right"></div>
+
+                </div>
 
             </div>
         </div>
-    </div>
-    <div id="loader-wrapper">
-        <div id="loader"></div>
 
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
 
-    </div>
+    }
+    else if (ViewBag.key == "1" || ViewBag.key=="2")
+    {
 
-    <environment names="Development">
 
-        <script type="text/javascript" src="~/css/homepage/js/jquery-1.11.0.min.js"></script>
-        <script type="text/javascript" src="/css/homepage/js/jquery.sudoSlider.min.js"></script>
-        <script type="text/javascript" src="/css/homepage/js/global.js"></script>
-        <script type="text/javascript" src="/css/homepage/js/modernizr.js"></script>
-        @RenderSection("script", required: false)
-        @RenderSection("mapscript", required: false)
-    </environment>
+
+        @Html.Partial("Homeheader_2")
+        @RenderBody()
+        <div id="loader-wrapper">
+            <div id="loader"></div>
+
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+
+        </div>
+
+
+    }
+
+
+    @if (ViewBag.key != "1" && ViewBag.key!="2")
+    {
+        <footer style="font-size:larger;position: fixed;left: 0;bottom: 0;width: 100%;background-color: rgba(0, 0, 0, 0.6);color: white;text-align: center; height:40px;">Home Page</footer>
+    }
+    else if (ViewBag.key == "1" || ViewBag.key=="2")
+    {
+        <footer style="font-size:larger;position: fixed;left: 0;bottom: 0;width: 100%;background-color: rgba(0, 0, 0, 0.6);color: white;text-align: center; height:40px;">Signup Page</footer>
+
+    }
+
+        <environment names="Development">
+
+            <script type="text/javascript" src="~/css/homepage/js/jquery-1.11.0.min.js"></script>
+            <script type="text/javascript" src="/css/homepage/js/jquery.sudoSlider.min.js"></script>
+            <script type="text/javascript" src="/css/homepage/js/global.js"></script>
+            <script type="text/javascript" src="/css/homepage/js/modernizr.js"></script>
+            @RenderSection("script", required: false)
+            @RenderSection("mapscript", required: false)
+            @RenderSection("Scripts",required:false)
+            
+        </environment>
 
 </body>
 </html>

@@ -1,0 +1,145 @@
+﻿@model QuickTest.Models.SellerViewModels.Step1
+
+@{
+    ViewData["Title"] = "step1";
+    Layout = "~/Views/Shared/HomeLayout2.cshtml";
+}
+@section css{
+
+    <style>
+        
+        .row {
+            margin-left: 500px;
+            margin-top: 50px;
+          border:double;
+        }
+
+        h1 {
+            margin-left: 760px;
+            margin-top: 100px;
+        }
+
+        @@media only screen and (max-width: 768px) {
+
+
+            .row {
+                margin-left: 20px;
+                margin-top: 30px;
+                background-color: orange;
+                margin-right: 20px;
+            }
+
+            h1 {
+                margin-left: 30px;
+                margin-top: 40px;
+            }
+        }
+    </style>
+}
+<br />
+<br />
+<br />
+<h1>Security</h1>
+
+
+<div class="row col-4 col-lg-6" >
+    <div class="col-5 col-md-4 col-lg-11">
+        <form asp-action="step3" id="form1">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="password" class="control-label"></label>
+                <input asp-for="password" type="password" id="password" placeholder="Password" class="form-control" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="Password" required />
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="conformpassword" class="control-label"></label>
+                <input asp-for="conformpassword" type="password" id="cfmpass" placeholder="Conform Password" class="form-control" />
+                <span asp-validation-for="conformpassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="email" class="control-label"></label>
+                <input asp-for="email" id="email" placeholder="Email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div class="form-group" id="errorrow">
+                <div class="col-12 col-md-6 col-lg-12"><span id="matcherror" class="pull-right col-12 col-lg-8" style="color:red; visibility:hidden; background-color:aqua;">Password Not Match</span></div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Next Step" class="btn btn-primary pull-right"id="btn-1" />
+            </div>
+            <br />
+            <br />
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/jquery.serializejson.js"></script>
+    <script src="~/js/jquery.cookie.js"></script>
+
+    <script>
+
+
+        function Validate() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("cfmpass").value;
+            console.log(password);
+            console.log(confirmPassword);
+            if (password != confirmPassword) {
+
+                document.getElementById("matcherror").style.visibility = "visible";
+
+                //alert("Passwords do not match.");
+                //return false;
+            } else {
+                document.getElementById("matcherror").style.visibility = "hidden";
+            }
+
+            //return true;
+        }
+        $(document).ready(function () {
+            $("#cfmpass").keyup(Validate);
+            $("#password").keyup(Validate);
+
+
+            var errordiv = document.getElementById("matcherror");
+            const formBtn1 = document.querySelector('#btn-1');
+            formBtn1.addEventListener('click', function (e) {
+
+
+                //$("#form1").validate({
+                //    rules: {
+                //        field: {
+                //            required: true,
+                //            step: 10
+                //        }
+                //    }
+                //});
+
+                $("#form1").submit(function (e) {
+                    e.preventDefault();
+                    if (errordiv.style.visibility == "hidden") {
+
+                        var obj = $("#form1").serializeJSON();
+                        var JsonString = JSON.stringify(obj);
+                        $.cookie("form1data", JsonString, { path: "/" });
+                        var data = $.cookie("form1data");
+                        var jsobject = JSON.parse(data);
+                        console.log(jsobject.Password);
+                        
+
+                        
+
+                        window.location.href = '/seller/';
+                    }
+                });
+
+            });
+        });
+    </script>
+
+}

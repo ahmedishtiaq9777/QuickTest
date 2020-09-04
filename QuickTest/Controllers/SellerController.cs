@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using QuickTest.Models;
 using QuickTest.Models.ManageViewModels;
 using QuickTest.Models.ReturnModelForAndroid;
@@ -297,7 +298,12 @@ namespace tryproj1._1.Controllers
 
            
         }
-        
+        public IActionResult temp2()
+        {
+            Usertable i = new Usertable();
+
+            return View("temp",i);
+        }
         public IActionResult signup()
         {
             ViewBag.key = "1";
@@ -320,13 +326,14 @@ namespace tryproj1._1.Controllers
             //  number = "92" + number;
             Random n = new Random();
             String randomnumber = (n.Next(100000, 999999)).ToString();
-            HttpContext.Session.SetString("Varification", randomnumber);
+          
+            
             String MessageText = "Your varification code is " + randomnumber;
 
             String URI = "http://sendpk.com" +
 "/api/sms.php?" +
-"username=" + "923338767324" +
-"&password=" + "Ahmadbutt321" +
+"username=" + "923225540338" +
+"&password=" + "ahmedishtiaq9777" +
 "&sender=" + "QuickMart" +
 "&mobile=" + number + "&message=" + Uri.UnescapeDataString(MessageText); // Visual Studio 10-15 
 
@@ -340,15 +347,28 @@ namespace tryproj1._1.Controllers
                 var sr = new System.IO.StreamReader(resp.GetResponseStream());
 
                 String result = sr.ReadToEnd().Trim();
+                char firstch = result[0];
                 if (result.Contains("OK"))
-                    return RedirectToAction("Entercode");
-                else if (result.Contains("7"))
                 {
+                    HttpContext.Session.SetString("Varification", randomnumber);
+                    // HttpContext.Session.SetString("phone", number);
+
+                    // CookieOptions option = new CookieOptions();
+                    //option.Expires = DateTime.Now.AddDays(1);
+                    //Response.Cookies.Append("phone", number,option);
+                    TempData["phone"] = number;
+
+                    return RedirectToAction("Entercode");
+                }
+                else if (firstch == '7')
+                {
+
                     ViewBag.error = "7";
                     //return View();
-                    return Json("Your Phone Number is invalid");
+                    //   return Json("Your Phone Number is invalid");
+                    return Json(result);
                 }
-                else if (result.Contains("8"))
+                else if (firstch == '8')
                 {
                     System.Diagnostics.Debug.WriteLine("SMS Balance Out");
                     return Json("SmS Balance out");
@@ -679,8 +699,33 @@ namespace tryproj1._1.Controllers
                 return View();
             }
         }
+
+
+        public IActionResult tempsignup()
+        {
+
+            string phone = HttpContext.Session.GetString("phone");
+
+
+            String step1 = Request.Cookies["form1data"];
+            Step1 security = JsonConvert.DeserializeObject<Step1>(step1);
+            ViewBag.password = security.password;
+            ViewBag.cnfrompass = security.conformpassword;
+            ViewBag.email = security.email;
+
+
+
+
+
+
+
+        }
+
         public IActionResult Addproduct()
         {
+
+
+
 
             return View();
         }
@@ -885,8 +930,8 @@ namespace tryproj1._1.Controllers
 
 
         public IActionResult Registeration()
-        { 
-
+        {
+            ViewBag.key = "2";
             return View();
 
 
@@ -915,11 +960,14 @@ namespace tryproj1._1.Controllers
         }
         public IActionResult errorpage()
         {
+           
+
             return View();
         }
         [HttpGet]
         public IActionResult Entercode()
         {
+            ViewBag.key = "1";
             return View();
 
         }
@@ -932,7 +980,8 @@ namespace tryproj1._1.Controllers
                 String tcode = HttpContext.Session.GetString("Varification");
                 if(code.Equals(tcode))
                 {
-                   return RedirectToAction("Registeration");
+                    HttpContext.Session.Remove("Varification");
+                    return RedirectToAction("step1", "Registeration");
                 }
                 else
                 {

@@ -40,10 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="Views\Seller\forgetpassword.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

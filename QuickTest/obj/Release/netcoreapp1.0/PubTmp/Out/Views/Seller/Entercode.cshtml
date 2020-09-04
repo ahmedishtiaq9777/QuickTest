@@ -3,22 +3,39 @@
     ViewData["Title"] = "Entercode";
     Layout = "~/Views/Shared/HomeLayout2.cshtml";
 }
+@section css{
+
+  
+        <style>
+            /*#entercode {
+                margin-top: 100px;
+            }*/
+
+            @@media only screen and (max-width: 768px) {
+                #entercode {
+                    margin-top: 50px;
+                }
+            }
+        </style>
+
+   
+
 }
-<div class="Contact_sec" id="login" style="width:100%;background-color:aqua;">
+<div class="Contact_sec" id="login" style="width:100%;">
 
 
 
 
     <!-- \\ Begin Get Section \\ -->
-    <div class="Get_sec">
+    <div class="Get_sec" style="height: 100vh;">
 
-        <div class="Mid" style="margin-top:50px;">
-            <div class="content-w3ls">
+        <div class="Mid">
+            <div class="content-w3ls" id="entercode">
                 <form asp-action="Entercode" asp-controller="Seller" method="post">
                     <h3 style="color:white;text-align:center;"> Verification Code</h3>
                     <div class="field-group" style="">
                         @*<span class="fa fa-user" aria-hidden="true"></span>*@
-                        <span style="color:lightgray;">+92</span>
+                        <span style="color:lightgray;">Code</span>
                         <div class="wthree-field">
 
                             <input name="code" id="code" placeholder="Enter Code" required>
@@ -27,7 +44,7 @@
                         @*<img id="img1" src="~/images/interface.png" style="width:30px;height:30px; padding-top:10px;"  >*@
                     </div>
                     @*<span asp-validation-for="PhoneNo" class="text-danger"></span>*@
-                    <span id="error" style="color:aliceblue;"></span>
+                    <span id="error" style="color:red;">@ViewBag.error</span>
 
 
                     @*<div class="field-group">
@@ -39,7 +56,9 @@
                     <div class="wthree-field">
                         <button id="submitcode" type="submit" class="btn">Submit</button>
                     </div>
+
                     <br />
+                    <a asp-action="signup" asp-controller="seller" id="goback" class="btn-default"><i class="fas fa-arrow-alt-circle-left"></i> Go Back</a>
                     @*<div class="field-group">
                             <span class="fa fa-user" aria-hidden="true"></span>
                             <div class="wthree-field">
@@ -70,8 +89,29 @@
                         </ul>*@
                 </form>
             </div>
-            </div>
         </div>
     </div>
+</div>
+
+@section script{
+
+    <script>
+        $(document).ready(function () {
+          
+           
+
+            var error = '@ViewBag.error';
+            if (error == "NotMatch")
+                alert("Enter code  correctly or go back and send it again");
+
+           
+
+             
+
+        });
+       
+
+    </script>
 
 
+}

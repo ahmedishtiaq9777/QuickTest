@@ -1,0 +1,175 @@
+﻿@model QuickTest.Models.SellerViewModels.step2
+
+@{
+    ViewData["Title"] = "step2";
+    Layout = "~/Views/Shared/HomeLayout2.cshtml";
+}
+@section css{
+    <style>
+
+        .row {
+            margin-left: 400px;
+            margin-top: 50px;
+            border:double;
+        }
+
+        h1 {
+            margin-left: 650px;
+            margin-top: 100px;
+        }
+
+        @@media only screen and (max-width: 768px) {
+            #shopnameerror{
+                
+                font-size:12px;
+            }
+            #chk_option_error{
+                font-size:12px;
+            }
+            label {
+                font-size: 12px;
+            }
+            .row {
+                margin-left: 20px;
+                margin-top: 30px;
+                background-color: orange;
+                margin-right: 20px;
+            }
+
+            h1 {
+                margin-left: 30px;
+                margin-top: 60px;
+            }
+        }
+    </style>
+}
+<h1> Shop Details</h1>
+
+
+<hr />
+<div class="row col-4 col-lg-6">
+    <div class="col-5 col-md-4 col-lg-11">
+        <form asp-action="step3" id="form2">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="shopname" class="control-label"></label>
+                <input asp-for="shopname" name="shopname" id="nameshop" placeholder="Shop Name (20 character)" title="Only Use Characters and Numbers" pattern="[a-zA-Z0-9]+" maxlength="20" class="form-control " required />
+                <span asp-validation-for="shopname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="col-4 col-md-6 col-lg-11"><span id="shopnameerror" class="pull-right" style="color:red;visibility:hidden;">Already Occupied</span></div>
+            </div>
+                     
+            <br />
+            <div class="" style="visibility:hidden; color:red;" id="chk_option_error"> Please select at least one Category.</div>
+            <div class="form-group">
+                <div class="col-4 col-lg-4"><label id="lblpassword" class="col-12 col-lg-12" style="margin-top:2px;">Categories Include:</label></div>
+                <div class="col-8 col-lg-8">
+                    <div class="col-3 col-lg-3"> <input type="checkbox" name="category[]" value="MenClothing" class="" style="" /><label class="pull-right">Men</label></div>
+
+                    <div class="col-4 col-lg-4"><input type="checkbox" name="category[]" value="WomenClothing" class="" style=""><label class="pull-right">Women</label></div>
+                    <div class="col-3 col-lg-3"><input type="checkbox" name="category[]" value="WomenClothing" class="" style="" /><label class="pull-right">Kids</label> </div>
+
+
+
+
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Next" class="btn btn-primary pull-right"id="btn-2-next" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/jquery.serializejson.js"></script>
+    <script src="~/js/jquery.cookie.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            const formBtnNext2 = document.querySelector('#btn-2-next');
+
+
+            formBtnNext2.addEventListener('click', function (f) {
+
+                // gotoNextForm(formBtnNext2, formBtn3, 2, 3);
+                //f.preventDefault();
+                //alert("as");
+
+                $("#form2").submit(function (n) {
+                    
+                    n.preventDefault();
+                   
+                    var form_data = new FormData(document.querySelector("#form2"));// select form and its data
+                    var error = document.getElementById("shopnameerror");
+
+                    if (form_data.has("category[]") && error.style.visibility == "hidden") {
+                        document.getElementById("chk_option_error").style.visibility = "hidden";
+                        //event.stopPropagation();
+                        console.log("submitted 2");
+
+                        var obj2 = $("#form2").serializeJSON();
+                        var JsonString = JSON.stringify(obj2);
+
+                        $.cookie("form2data", JsonString, { path: "/" });
+                        alert("ahmed");
+                        window.location.href = '/Registeration/step3';
+
+                    } else if (!form_data.has("category[]")) {
+                        document.getElementById("chk_option_error").style.visibility = "visible";
+                    }
+
+                });
+
+            });
+
+            $("input#nameshop").blur(function () {
+                var valuee = $("input#nameshop").val();
+                console.log(valuee);
+                if (jQuery.trim(valuee).length > 0) {
+                    $.ajax({
+
+                        type: "post",
+                        url: "/Seller/validateshopname/",
+
+                        data: { shopname: valuee },
+                        success: function (data) {
+                            //alert(data);
+                            if (data == "1") {
+                                // alert("1");
+                                document.getElementById("shopnameerror").style.visibility = "visible";
+
+                            } else if (data == "0") {
+                                //  alert("0");
+                                document.getElementById("shopnameerror").style.visibility = "hidden";
+                            }
+
+                            // if (data == "ok")
+                            //$("#error").html(data.result);
+                            //$("#update").html("Result: " + data.result);
+
+                        }
+
+
+
+
+                    });
+
+
+
+                }
+
+            });
+        });
+
+
+    </script>
+}
