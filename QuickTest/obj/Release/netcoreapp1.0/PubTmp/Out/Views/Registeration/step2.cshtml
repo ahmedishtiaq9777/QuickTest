@@ -27,12 +27,12 @@
                 font-size:12px;
             }
             label {
-                font-size: 12px;
+                font-size: 15px;
             }
             .row {
                 margin-left: 20px;
                 margin-top: 30px;
-                background-color: orange;
+                
                 margin-right: 20px;
             }
 
@@ -53,8 +53,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="shopname" class="control-label"></label>
-                <input asp-for="shopname" name="shopname" id="nameshop" placeholder="Shop Name (20 character)" title="Only Use Characters and Numbers" pattern="[a-zA-Z0-9]+" maxlength="20" class="form-control " required />
+                <label asp-for="shopname" class="control-label">Shop Name</label>
+                <input asp-for="shopname" name="shopname" id="nameshop" placeholder="Shop Name (20 character)" title="Only Use Characters and Numbers" pattern="[a-zA-Z0-9]+" min="4" maxlength="20" class="form-control " required />
                 <span asp-validation-for="shopname" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -78,8 +78,9 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <input type="submit" value="Next" class="btn btn-primary pull-right"id="btn-2-next" />
+            <div class="form-group" style="margin-top:40px;">
+                <a  asp-controller="Registeration"asp-action="step1" class="btn btn-primary pull-left" id="btn-2-prev" >Prev</a>
+                <input type="submit" value="Next" class="btn btn-primary pull-right" id="btn-2-next" />
             </div>
         </form>
     </div>
@@ -120,7 +121,7 @@
                         var JsonString = JSON.stringify(obj2);
 
                         $.cookie("form2data", JsonString, { path: "/" });
-                        alert("ahmed");
+                       // alert("ahmed");
                         window.location.href = '/Registeration/step3';
 
                     } else if (!form_data.has("category[]")) {

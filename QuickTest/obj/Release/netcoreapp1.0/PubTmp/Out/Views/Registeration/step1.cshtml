@@ -9,13 +9,13 @@
     <style>
         
         .row {
-            margin-left: 500px;
+            margin-left: 400px;
             margin-top: 50px;
           border:double;
         }
 
         h1 {
-            margin-left: 760px;
+            margin-left: 690px;
             margin-top: 100px;
         }
 
@@ -25,7 +25,7 @@
             .row {
                 margin-left: 20px;
                 margin-top: 30px;
-                background-color: orange;
+                
                 margin-right: 20px;
             }
 
@@ -33,12 +33,18 @@
                 margin-left: 30px;
                 margin-top: 40px;
             }
+            #step1-btn{
+
+                margin-top:0px;
+            }
+
         }
     </style>
 }
 <br />
 <br />
 <br />
+<h2>@ViewBag.error</h2>
 <h1>Security</h1>
 
 
@@ -47,24 +53,24 @@
         <form asp-action="step3" id="form1">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="password" class="control-label"></label>
-                <input asp-for="password" type="password" id="password" placeholder="Password" class="form-control" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="Password" required />
+                <label asp-for="password" class="control-label">Password</label>
+                <input asp-for="password" type="password" id="password" class="form-control" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="Password" required />
                 <span asp-validation-for="password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="conformpassword" class="control-label"></label>
-                <input asp-for="conformpassword" type="password" id="cfmpass" placeholder="Conform Password" class="form-control" />
+                <label asp-for="conformpassword" class="control-label">Confirm Password</label>
+                <input asp-for="conformpassword" type="password" id="cfmpass"  class="form-control" />
                 <span asp-validation-for="conformpassword" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="email" class="control-label"></label>
-                <input asp-for="email" id="email" placeholder="Email" class="form-control" />
+                <label asp-for="email" class="control-label">Email<span style="font-size:10px;">(Optional)</span></label>
+                <input asp-for="email" id="email"  type="email" class="form-control" />
                 <span asp-validation-for="email" class="text-danger"></span>
             </div>
             <div class="form-group" id="errorrow">
-                <div class="col-12 col-md-6 col-lg-12"><span id="matcherror" class="pull-right col-12 col-lg-8" style="color:red; visibility:hidden; background-color:aqua;">Password Not Match</span></div>
+                <div class="col-12 col-md-6 col-lg-12" id="errorcol"><span id="matcherror" class="pull-right col-12 col-lg-8" style="color:red; visibility:hidden; background-color:aqua;">Password Not Match</span></div>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="step1-btn">
                 <input type="submit" value="Next Step" class="btn btn-primary pull-right"id="btn-1" />
             </div>
             <br />
@@ -90,18 +96,28 @@
             console.log(password);
             console.log(confirmPassword);
             if (password != confirmPassword) {
-
+                $("#errorrow").show();
+                $("errorcol").show();
                 document.getElementById("matcherror").style.visibility = "visible";
+
 
                 //alert("Passwords do not match.");
                 //return false;
             } else {
+                $("#errorrow").hide();
+                $("errorcol").hide();
                 document.getElementById("matcherror").style.visibility = "hidden";
             }
 
             //return true;
         }
         $(document).ready(function () {
+
+
+            $("#errorrow").hide();
+            $("errorcol").hide();
+            document.getElementById("matcherror").style.visibility = "hidden";
+
             $("#cfmpass").keyup(Validate);
             $("#password").keyup(Validate);
 
@@ -134,7 +150,7 @@
 
                         
 
-                        window.location.href = '/Registeration/step2';
+                        window.location.href = '/seller/tempsignup';
                     }
                 });
 

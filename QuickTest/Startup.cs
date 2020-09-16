@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -51,7 +52,13 @@ namespace QuickTest
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
-          services.AddSession();
+
+
+         // services.AddSession();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

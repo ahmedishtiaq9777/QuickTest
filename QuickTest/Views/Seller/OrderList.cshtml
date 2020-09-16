@@ -1,4 +1,5 @@
-@model IEnumerable<QuickTest.Models.SellerViewModels.OrderViewModel>
+@using QuickTest.Models.SellerViewModels;
+@model Tuple<List<OrderViewModel>,Basedashboard>
 
 @{
     ViewData["Title"] = "OrderList";
@@ -34,31 +35,31 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Orderid)
+                           OrderId
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.userid)
+                            UserId
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.user_name)
+                          UserName
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.phone)
+                          Phone Number
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.address)
+                           Address
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.total)
+                           Total
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.status)
+                            Status
                         </th>
 
                         <th>
-                            @Html.DisplayNameFor(model => model.orderdate)
+                            Order Date
                         </th>
-                        <th>@Html.DisplayNameFor(model=>model.products)</th>
+                        <th>Products</th>
                         <th>Actions</th>
 
 
@@ -67,7 +68,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Item1)
                     {
                         <tr>
                             <td>
@@ -88,21 +89,22 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.total)
                             </td>
-                            
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.status)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.orderdate)
                             </td>
-                            <td>@for(int i=0;i<item.products.Count();i++){ <a class="btn-primary" href="#"> @item.products[i].title</a>}</td>
+                            <td>@for (int i = 0; i < item.products.Count(); i++)
+                            {<a class="btn-primary" href="#"> @item.products[i].title</a>}</td>
 
 
 
                             <td>
-                                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ })<br/>
-                                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
-                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                @Html.ActionLink("Edit", "EditOrderInfo", new {  id=item.Orderid  })<br />
+                                @Html.ActionLink("OrderDetails", "OrderDetail", new { id = item.Orderid })
+                                @Html.ActionLink("Cancel Order", "CancelOrder", new {  id=item.Orderid  })
                             </td>
                         </tr>
                     }
@@ -114,19 +116,19 @@
 
 @section scriptscdn{
     @*<script src="~/css/ltdtheme/bstable.js"></script>
-    <script>
-    var example1 = new BSTable("order");
-        example1.init();
-    </script>*@
+        <script>
+        var example1 = new BSTable("order");
+            example1.init();
+        </script>*@
 
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
-        <script>
+    <script>
 
 
 
-            $(document).ready(function () {
-                $('#order').DataTable();
-            });
+        $(document).ready(function () {
+            $('#order').DataTable();
+        });
 
     </script>
 }

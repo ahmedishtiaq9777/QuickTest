@@ -396,8 +396,8 @@ namespace QuickTest.Models
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.Property(e => e.Address)
-                    .HasColumnName("address")
-                    .HasMaxLength(50);
+                    .HasColumnName("address");
+                    
 
                 entity.Property(e => e.Cnic)
                     .HasColumnName("cnic")
@@ -445,6 +445,11 @@ namespace QuickTest.Models
                 entity.Property(e => e.PhoneNo)
                     .HasColumnName("phone_no")
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Rating).HasColumnName("rating");
+
+                entity.Property(e => e.SellerDetails)
+                .HasColumnName("seller_details");
 
                 entity.Property(e => e.ShopName)
                     .HasColumnName("shop_name")

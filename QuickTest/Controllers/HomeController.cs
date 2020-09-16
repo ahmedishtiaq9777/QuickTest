@@ -53,6 +53,74 @@ namespace QuickTest.Controllers
 
         }
         [HttpPost]
+        public JsonResult SearchNearByProducts(string idsarray)
+        {
+
+            IList<String> sellerids = JsonConvert.DeserializeObject<List<String>>(idsarray);
+            List<int> int_sellerids = new List<int>();
+            foreach(string s in sellerids)
+            {
+
+                int_sellerids.Add(int.Parse(s));
+
+
+            }
+         List<Product> prolist=   db.Product.Where(a => int_sellerids.Contains(a.UserId.Value)).ToList();
+
+            return Json(prolist);
+
+        }
+    
+        public JsonResult getsizecolors(Userid_Proid_Raiting_Feedback_RecieveModel model)
+        {
+            List<ProductSpecification> pd = new List<ProductSpecification>();
+            try
+            {
+                 pd = db.ProductSpecification.Where(a => a.ProductId.Equals(model.proid)).ToList();
+              
+                
+                    return Json(pd);
+
+               
+            }
+            catch (Exception e)
+            {
+                StringResult result = new StringResult();
+                result.error = e.Message;
+                result.Strresult = "error";
+                return Json(result);
+            }
+        }
+        public JsonResult getuserInfo(UserIdRecieveModelForAndroid Model)
+        {
+            try {
+                Usertable user = db.Usertable.Where(a => a.UserId.Equals(Model.userid)).SingleOrDefault();
+
+                ShippingDetail_ModelAndroid userdetail = new ShippingDetail_ModelAndroid();
+                if (user.Address != null)
+                {
+                    userdetail.address = user.Address;
+                    userdetail.contact = user.PhoneNo;
+                   // userdetail.name = user.Firstname + " "+user.Lastname;
+
+                    return Json(userdetail);
+                }
+                else
+                {
+                    userdetail.address = "null";
+                   return Json(userdetail);
+
+                }
+            } catch(Exception e)
+            {
+                ShippingDetail_ModelAndroid userdetail = new ShippingDetail_ModelAndroid();
+                userdetail.address = "null";
+                return Json(userdetail);
+            }
+       
+
+        }
+        [HttpPost]
         public JsonResult SaveOrder(UserIdRecieveModelForAndroid obj)
         {
             try
@@ -61,7 +129,7 @@ namespace QuickTest.Controllers
                 int orderid = 0;
 
                 Order order = new Order();
-                order.Status = "Not Received";
+                order.Status = "Not Ready";
                 order.UserId = obj.userid;
                 order.Date = DateTime.Now;
                 order.Total = obj.total;
@@ -95,16 +163,21 @@ namespace QuickTest.Controllers
                     transaction.ProId =i.productId;
                     transaction.Quantity = i.userQuantity;
                     transaction.SellerId = i.sellerId;
-
+                    
                    double utotal = transaction.Quantity.Value * i.price;
                     transaction.unitTotal = utotal;
-                   
+                   Product p= db.Product.Where(a => a.ProductId.Equals(i.productId)).SingleOrDefault();
+                    p.Quantity = p.Quantity - i.userQuantity;
+
                     db.OrderItems.Add(transaction);
                     db.SaveChanges();
-                    
+                   
+
 
 
                 }
+
+
                 int cartid = db.Cart.Where(a => a.UserId.Equals(obj.userid)).Select(b => b.CartId).SingleOrDefault();
                 List<CartProdescriptionPivot> cpdp=db.CartProdescriptionPivot.Where(b => b.CartId.Equals(cartid)).ToList();
                 db.CartProdescriptionPivot.RemoveRange(cpdp);
@@ -958,7 +1031,7 @@ namespace QuickTest.Controllers
                int ID = int.Parse(obj.sellerid);
                 Userid_Proid_Raiting_Feedback_RecieveModel temp;
 
-                List<Product> list = db.Product.Where(a => a.UserId.Equals(ID) && a.Category.Contains(obj.category)).ToList();
+                List<Product> list = db.Product.Where(a => a.UserId.Equals(ID) && a.Category.Contains(obj.category) &&a.Quantity>0).ToList();
                 try
                 {
                     int[] proids = new int[list.Count];
@@ -1149,6 +1222,8 @@ namespace QuickTest.Controllers
                 tobj.Logo = tuser.Logo;
                 tobj.Address = tuser.Address;
                 tobj.d_kilometers = i.distance_km;
+                tobj.contact = tuser.PhoneNo;
+
 
                 UsersWithKm.Add(tobj);
             }
@@ -1165,7 +1240,7 @@ namespace QuickTest.Controllers
             //  List<Distance_User> userid_distance = new List<Distance_User>();
             try
             {
-                ulist = db.Usertable.Where(a => a.UserType.Equals("S")).ToList();
+                ulist = db.Usertable.Where(a => a.UserType.Equals("S") && !a.SellerDetails.Equals(0)).ToList();
 
 
                    var t =GetnearBysellerswithBoundry(ulist,obj); // unsortedlist of user  with  distance kilometer
@@ -1362,25 +1437,120 @@ namespace QuickTest.Controllers
         [HttpGet]
         public JsonResult gettrendingpro()
         {
-            IList<Product> list;
+          //  IList<Product> list;
             try
             {
-                list = db.Product.Where(a => a.Category == "Trending").ToList();
+               // list = db.Product.Where(a => a.Category == "Trending").ToList();
+
+
+                var query =
+       (from item in  db.OrderItems
+        group item.Quantity by item.Pro into g
+        orderby g.Sum() descending
+        select g.Key).Take(5);
+                return Json(query);
+
 
             }
             catch (Exception e)
             {
                 return Json(e.Message);
             }
-            return Json(list);
+          //  return Json(list);
         }
+        [HttpPost]
+        public JsonResult Checkuser(Usertable user)
+        {
+            try
+            {
+                Usertable u = db.Usertable.Where(a => a.PhoneNo.Equals(user.PhoneNo) && a.UserType.Equals("c")).SingleOrDefault();
+                if(u!=null)
+                {
+
+                    StringResult result = new StringResult();
+                    result.Strresult = "allreadyregistered";
+                    return Json(result);
+                }
+                else
+                {
+                    StringResult result = new StringResult();
+                    result.Strresult = "NewUser";
+                    return Json(result);
+
+                }
+
+            }
+            catch(Exception e)
+            {
+
+                StringResult result = new StringResult();
+                result.Strresult = "NULL";
+                result.error = e.Message;
+                return Json(result);
+
+            }
+
+
+        }[HttpPost]
+        public JsonResult UpdatePassword(ForgetPassword obj)
+        {
+            try
+            {
+              Usertable user=  db.Usertable.Where(a => a.PhoneNo.Equals(obj.phoneNo) && a.UserType.Equals("C")).SingleOrDefault();
+                user.Password = obj.newpassword;
+                db.SaveChanges();
+                StringResult result = new StringResult();
+                result.Strresult = "success";
+                return Json(result);
+
+            }catch(Exception e)
+            {
+                StringResult result = new StringResult();
+                result.Strresult = "null";
+                result.error = e.Message;
+                return Json(result);
+            }
+        }
+        [HttpPost]
+        public JsonResult forgetpassword(Usertable user)
+        {
+            try
+            {
+                Usertable u = db.Usertable.Where(a => a.PhoneNo.Equals(user.PhoneNo) && a.UserType.Equals("c")).SingleOrDefault();
+                if(u!=null)
+                {
+                    StringResult result = new StringResult();
+                    result.Strresult = u.Password;
+                    return Json(result);
+
+
+                }
+                else
+                {
+                    StringResult result = new StringResult();
+                    result.Strresult = "NotRegistered";
+                    return Json(result);
+                }
+            }catch(Exception e)
+            {
+
+                StringResult result = new StringResult();
+                result.error = e.Message;
+                result.Strresult = "NULL";
+                return Json(result);
+            }
+
+
+        }
+
+
 
         [HttpPost]// for Android 
         public JsonResult signup(Usertable e)
         {
             try
             {
-                Usertable e2 = db.Usertable.Where(a => a.PhoneNo.Equals(e.PhoneNo)).SingleOrDefault();
+                Usertable e2 = db.Usertable.Where(a => a.PhoneNo.Equals(e.PhoneNo)&& a.UserType.Equals("C") ).SingleOrDefault();
                 if (e2 != null)
                 {
                     StringResult temp = new StringResult();
@@ -1392,8 +1562,8 @@ namespace QuickTest.Controllers
                 }
                else
                 {
-                    if (e.UserType.Equals("C"))
-                    {
+                   
+                    
                         db.Usertable.Add(e);
                         db.SaveChanges();
                        
@@ -1403,24 +1573,16 @@ namespace QuickTest.Controllers
                         return Json(temp);
 
 
-                    }
-                    else
-                    {
-                        db.Usertable.Add(e);
-                        db.SaveChanges();
-
-
-                        StringResult temp = new StringResult();
-                        temp.Strresult = "registered";
-                        temp.userid = e.UserId;
-                        return Json(temp);
-                    }
+                    
                 }
             }
             catch (NullReferenceException ex)
             {
                 Console.Write(ex.Message);
-                return Json("Error: " + ex.Message);
+                StringResult temp = new StringResult();
+                temp.Strresult = ex.Message;
+                temp.userid = 0;
+                return Json(temp);
             }
 
         }

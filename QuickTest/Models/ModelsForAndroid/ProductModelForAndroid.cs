@@ -14,6 +14,7 @@ namespace QuickTest.Models.ModelsForAndroid
         public int sellerQuantity { get; set; }
         public string title { get; set; }
         public int sellerId { get; set; }
+
       
 
 

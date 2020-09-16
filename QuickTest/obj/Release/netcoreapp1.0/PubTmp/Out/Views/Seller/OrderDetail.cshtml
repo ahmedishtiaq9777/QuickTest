@@ -1,0 +1,95 @@
+﻿@using QuickTest.Models.SellerViewModels;
+@model Tuple<List<Product>, Basedashboard>
+
+@{
+    ViewData["Title"] = "orderdetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">OrderDetail</h1>
+
+                </div><!-- /.col -->
+                @*<div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </div>*@<!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+
+ <section class="content">
+        <div class="container-fluid">
+
+
+         
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            ProductImage
+                        </th>
+                        <th>
+                            Code
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Price
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Item1)
+                    {
+                        <tr>
+                            <td>
+                                <img style="height:60px;width:60px;" src="http://ahmedishtiaq165-001-site1.ftempurl.com/@item.ProductImage" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Code)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+                                 <a asp-action="Orderlist">Back TO List</a>
+            </div>
+</section>
+
+</div><!--en content wrapper-->

@@ -17,6 +17,7 @@ namespace QuickTest.Models
         public int UserId { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
         [Required(ErrorMessage ="This is Required")]
         public string Password { get; set; }
@@ -33,6 +34,8 @@ namespace QuickTest.Models
         public string Logo { get; set; }
         public string ShippingDetail { get; set; }
         public int? IsBlocked { get; set; }
+        public int? SellerDetails { get; set; }
+        public double? Rating { get; set; }
 
         public virtual ICollection<Cart> Cart { get; set; }
         public virtual ICollection<Order> Order { get; set; }

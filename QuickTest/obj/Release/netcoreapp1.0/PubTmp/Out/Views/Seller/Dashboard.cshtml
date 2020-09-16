@@ -1,4 +1,6 @@
-﻿@model QuickTest.Models.SellerViewModels.DashboardViewModel
+﻿@using QuickTest.Models.SellerViewModels;
+
+@model  Tuple<DashboardViewModel,Basedashboard,double[]>
 @{
 
     ViewData["Title"] = "Dashbooard";
@@ -8,6 +10,7 @@
 @section css{
 
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+   
 
 }
 
@@ -100,7 +103,7 @@
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Orders</span>
                                 <span class="info-box-number">
-                                    @Model.Totalorders
+                                    @Model.Item1.Totalorders
 
                                 </span>
                             </div>
@@ -114,7 +117,7 @@
                             <span class="info-box-icon bg-danger elevation-1"><i class="fab fa-product-hunt fa-2x"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Total Products</span>
-                                <span class="info-box-number">@Model.Totalproducts</span>
+                                <span class="info-box-number">@Model.Item1.Totalproducts</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -128,7 +131,7 @@
                             <span class="info-box-icon bg-success elevation-1"><img width="50" height="40" src="~/css/ltdtheme/img/Rsicon.svg" /></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Earnings</span>
-                                <span class="info-box-number">@Model.Totalearnings</span>
+                                <span class="info-box-number">@Model.Item1.Totalearnings</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -140,7 +143,7 @@
                             <span class="info-box-icon bg-warning elevation-1"><img src="~/css/ltdtheme/img/sales.png" width="40" height="50" /></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">Sales</span>
-                                <span class="info-box-number">@Model.Salesitems Items</span>
+                                <span class="info-box-number">@Model.Item1.Salesitems Items</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -183,18 +186,18 @@
             // Chart data records -- each entry in this array corresponds to a point on
             // the chart.
             data: [
-                { day: 'Jan', Sales: 20 },
-                { day: 'Feb', Sales: 10 },
-                { day: 'Mar', Sales: 5 },
-                { day: 'Apr', Sales: 5 },
-                { day: 'May', Sales: 20 },
-                { day: 'June', Sales: 28 },
-                { day: 'July', Sales: 20 },
-                { day: 'Aug', Sales: 20 },
-                { day: 'Sep', Sales: 20 },
-                { day: 'Oct', Sales: 8 },
-                { day: 'Nov', Sales: 10 },
-                { day: 'Dec', Sales: 19 }
+                { day: 'Jan', Sales: @Model.Item3.GetValue(0) },
+                { day: 'Feb', Sales: @Model.Item3.GetValue(1) },
+                { day: 'Mar', Sales: @Model.Item3.GetValue(2)},
+                { day: 'Apr', Sales: @Model.Item3.GetValue(3) },
+                { day: 'May', Sales: @Model.Item3.GetValue(4) },
+                { day: 'June', Sales: @Model.Item3.GetValue(5) },
+                { day: 'July', Sales: @Model.Item3.GetValue(6) },
+                { day: 'Aug', Sales: @Model.Item3.GetValue(7) },
+                { day: 'Sep', Sales: @Model.Item3.GetValue(8) },
+                { day: 'Oct', Sales: @Model.Item3.GetValue(9) },
+                { day: 'Nov', Sales: @Model.Item3.GetValue(10) },
+                { day: 'Dec', Sales: @Model.Item3.GetValue(11) }
 
 
             ],
@@ -205,7 +208,7 @@
             ykeys: ['Sales'],
             // Labels for the ykeys -- will be displayed when you hover over the
             // chart.
-            labels: ['Sales'],
+            labels: ['(Rs)Sales'],
             lineColors: ['#373651']
         });
     </script>

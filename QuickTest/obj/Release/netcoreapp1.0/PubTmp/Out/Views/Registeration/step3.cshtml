@@ -82,7 +82,8 @@
 
                 <input id="long" asp-for="longitude" hidden type="text" />
             <div class="form-group">
-                <input type="submit" value="Done" id="btn-3" class="btn btn-primary" />
+                <a class="btn btn-primary pull-left"asp-controller="Registeration" asp-action="step2">Prev</a>
+                <input type="submit" value="Done" id="btn-3" class="btn btn-primary pull-right" />
             </div>
         </form>
     </div>
@@ -146,6 +147,13 @@
 
                             componentRestrictions: { country: "pk" }
                         };
+
+
+                        //var options = {
+
+                        //    types: ['(cities)'],
+                        //    componentRestrictions: { country: "pk" }
+                        //};
 
                         var input = document.getElementById('location');
 

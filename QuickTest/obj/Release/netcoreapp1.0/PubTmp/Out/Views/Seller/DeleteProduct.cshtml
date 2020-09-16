@@ -1,4 +1,6 @@
-@model QuickTest.Models.Product
+@using QuickTest.Models.SellerViewModels;
+
+@model Tuple<Product,Basedashboard> 
 @{
     ViewData["Title"] = "ConforDelete";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -30,7 +32,7 @@
                                 <div class="carousel-inner">
                                     <div class="item active">
                                         <figure>
-                                            <img src="@Model.ProductImage" alt="">
+                                            <img src="@Model.Item1.ProductImage" alt="">
                                         </figure>
                                     </div><!-- end item -->
 
@@ -45,7 +47,7 @@
                                 </div><!-- end carousel-inner -->
                                 <!-- thumbs -->
                                 <ol class="carousel-indicators mCustomScrollbar meartlab">
-                                    <li data-target=".product-slider" data-slide-to="0" class="active"><img src="@Model.ProductImage" alt=""></li>
+                                    <li data-target=".product-slider" data-slide-to="0" class="active"><img src="@Model.Item1.ProductImage" alt=""></li>
                                    
                                 </ol><!-- end carousel-indicators -->
                             </div><!-- end carousel -->
@@ -54,12 +56,12 @@
                         <div class="col-sm-8">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <h2 class="title">@Model.Title</h2>
-                                    <p class="text-gray alt-font">@Model.Code</p>
+                                    <h2 class="title">@Model.Item1.Title</h2>
+                                    <p class="text-gray alt-font">@Model.Item1.Code</p>
 
                                     <ul class="list list-inline">
 
-                                        <li><h5 class="text-primary">$@Model.Price</h5></li>
+                                        <li><h5 class="text-primary">$@Model.Item1.Price</h5></li>
 
 
                                     </ul>
@@ -70,10 +72,10 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <p>@Model.Description</p>
+                                    <p>@Model.Item1.Description</p>
 
                                     <hr />
-                                    <a href="/Seller/ConfirmDelete?proid=@Model.ProductId" class="btn btn-default">Conform Delete</a>
+                                    <a href="/Seller/ConfirmDelete?proid=@Model.Item1.ProductId" class="btn btn-default">Conform Delete</a>
 
 
                                 </div><!-- end col -->

@@ -7,8 +7,8 @@ namespace QuickTest.Models.SellerViewModels
 {
     public class GraphViewModel
     {
-        public string title { get; set; }
-        public int dataitem { get; set; }
+        public string day  { get; set; }
+        public double dataitem { get; set; }
 
     }
 }

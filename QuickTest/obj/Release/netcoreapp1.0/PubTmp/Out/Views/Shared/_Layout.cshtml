@@ -1,4 +1,5 @@
 ﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,8 @@
         <link rel="stylesheet" href="~/css/ltdtheme/plugins/summernote/summernote-bs4.css">
         <!-- Google Font: Source Sans Pro -->
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+        @*<link href="~/css/ltdtheme/circulerbar.css" rel="stylesheet" />*@
         @RenderSection("css", required: false)
         @RenderSection("csscdn", required: false)
     </environment>
@@ -53,14 +56,30 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         @Html.Partial("_Header")
+
         @Html.Partial("_Sidebar")
         @RenderBody()
+
+
+
         @Html.Partial("_Footer")
         @Html.Partial("_Aside")
+
         <!-- Add the sidebar's background. This div must be placed
         immediately after the control sidebar -->
-        
+
     </div>
+
+
+    @*<div id="loader-wrapper">
+        <div id="loader"></div>
+
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+
+    </div>*@
+
+
     <environment names="Development">
 
         <!-- jQuery -->
@@ -98,12 +117,53 @@
         <!-- AdminLTE for demo purposes -->
         <script src="~/css/ltdtheme/dist/js/demo.js"></script>
         <script src="~/lib/jquery/dist/jquery.js"></script>
-        @RenderSection("scriptscdn", required: false);
+
+        @*<script src="~/css/homepage/js/global.js"></script>*@
+       
+        @RenderSection("scriptscdn", required: false)
+
+
         <script>
 
 
 
             $(document).ready(function () {
+
+
+
+
+                //alert("ahmed");
+                $(".wrapper").find("#logo").on("error", function () {
+                    alert("ahmed");
+                    $(this).attr('src', '/img/logos/alt.png');
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -133,20 +193,20 @@
                 });
 
 
-                
+
 
                 //$(".wrapper").find("#allpro").click(function () {
-                   
+
                 //    var allpro = $(".wrapper").find("#allpro2");
                 //    var sidebar = $(".wrapper").find(".sidebar");
-                    
+
                 //    var alreadyselected = sidebar.find(".active");
                 //   // var ht = alreadyselected.html();
                 //   // alert(ht);
                 //    alreadyselected.removeClass("active");
                 //    allpro.addClass("active");
                 // //   alert("ahmed2");
-                    
+
 
 
 
@@ -158,8 +218,8 @@
                 //  //  var ht = dash.html();
                 //   // alert(ht);
                 //    var sidebar = $(".wrapper").find(".sidebar");
-                    
-                   
+
+
                 //    var alreadyselected = sidebar.find(".active");
                 //   // var ht2 = alreadyselected.html();
                 //    //alert(ht2);
@@ -179,11 +239,15 @@
 
 
         </script>
+
+
+
+
         @RenderSection("scripts", required: false)
     </environment>
 
 
-    
+
 </body>
 
 

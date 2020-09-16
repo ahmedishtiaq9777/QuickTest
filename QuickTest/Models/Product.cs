@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickTest.Models.SellerViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace QuickTest.Models
