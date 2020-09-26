@@ -11,5 +11,7 @@ namespace tryproj1._1.Models.ModelsForAndroid
         public String userId { get; set; }
         public String productId { get; set; }
         public String sellerid { get; set; }
+        public String color { get; set; }
+        public String size { get; set; }
 }
 }

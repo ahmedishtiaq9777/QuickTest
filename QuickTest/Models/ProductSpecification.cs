@@ -15,6 +15,7 @@ namespace QuickTest.Models
         public string ProductColor { get; set; }
         public string ProductSize { get; set; }
         public int ProductId { get; set; }
+        public int? Quantity { get; set; }
 
         public virtual ICollection<Cart> Cart { get; set; }
         public virtual ICollection<CartProdescriptionPivot> CartProdescriptionPivot { get; set; }

@@ -17,6 +17,7 @@ namespace QuickTest.Models
         public DateTime? Date { get; set; }
         public double? Total { get; set; }
         public int? SellerId { get; set; }
+        
 
         public virtual ICollection<OrderItems> OrderItems { get; set; }
         public virtual ICollection<Transaction> Transaction { get; set; }

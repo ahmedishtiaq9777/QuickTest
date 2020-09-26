@@ -120,6 +120,96 @@ namespace QuickTest.Controllers
        
 
         }
+
+
+        [HttpPost]
+        public JsonResult SaveOrderForDidectBuy(UserIdRecieveModelForAndroid obj)
+        {
+            try
+            {
+
+                int orderid = 0;
+
+                Order order = new Order();
+                order.Status = "Not Ready";
+                order.UserId = obj.userid;
+                order.Date = DateTime.Now;
+                order.Total = obj.total;
+
+                //order.SellerId = obj.sellerid;
+                db.Order.Add(order);
+                db.SaveChanges();
+                try
+                {
+                    orderid = order.OrderId;
+                }
+                catch (NullReferenceException e)
+                {
+                    StringResult result2 = new StringResult();
+                    result2.error = e.Message;
+                    result2.Strresult = "Order id is Null";
+                    return Json(result2);
+                }
+
+            
+
+
+                //IList<String> idList = JsonConvert.DeserializeObject<List<String>>(idsarray);
+
+                OrderItems transaction;
+                List<ProductModelForAndroid> list = JsonConvert.DeserializeObject<List<ProductModelForAndroid>>(obj.orderedproducts);
+                foreach (ProductModelForAndroid i in list)
+                {
+                    ProductSpecification spec = db.ProductSpecification.Where(a => a.ProductId.Equals(obj.proid) && a.ProductColor.Equals(obj.color) && a.ProductSize.Equals(obj.size)).SingleOrDefault();
+
+                    transaction = new OrderItems();
+                    transaction.UserId = obj.userid;
+                    transaction.OrderId = orderid;
+                    transaction.ProId = i.productId;
+                    transaction.Quantity = i.userQuantity;
+                    transaction.SellerId = i.sellerId;
+                    transaction.Viewed = 0;
+                    transaction.SpecificationId = spec.SpecificationId;
+                    double utotal = transaction.Quantity.Value * i.price;
+                    transaction.unitTotal = utotal;
+                   // ProductSpecification spec = db.ProductSpecification.Where(a => a.SpecificationId.Equals(i.specificationid)).SingleOrDefault();
+                    //  Product p= db.Product.Where(a => a.ProductId.Equals(i.productId)).SingleOrDefault();
+                    // p.Quantity = p.Quantity - i.userQuantity;
+                    spec.Quantity = spec.Quantity - i.userQuantity;
+                    db.OrderItems.Add(transaction);
+                    db.SaveChanges();
+
+
+
+
+                }
+
+
+               // int cartid = db.Cart.Where(a => a.UserId.Equals(obj.userid)).Select(b => b.CartId).SingleOrDefault();
+                //List<CartProdescriptionPivot> cpdp = db.CartProdescriptionPivot.Where(b => b.CartId.Equals(cartid)).ToList();
+                //db.CartProdescriptionPivot.RemoveRange(cpdp);
+                db.SaveChanges();
+
+                StringResult result = new StringResult();
+                result.Strresult = "OrderSaved";
+                return Json(result);
+            }
+            catch (Exception e)
+            {
+                StringResult result = new StringResult();
+                result.error = e.Message;
+                result.Strresult = "OrderNOtAdded";
+                return Json(result);
+
+
+            }
+
+
+        }
+
+
+
+
         [HttpPost]
         public JsonResult SaveOrder(UserIdRecieveModelForAndroid obj)
         {
@@ -133,6 +223,7 @@ namespace QuickTest.Controllers
                 order.UserId = obj.userid;
                 order.Date = DateTime.Now;
                 order.Total = obj.total;
+               
                 //order.SellerId = obj.sellerid;
                 db.Order.Add(order);
                 db.SaveChanges();
@@ -163,12 +254,14 @@ namespace QuickTest.Controllers
                     transaction.ProId =i.productId;
                     transaction.Quantity = i.userQuantity;
                     transaction.SellerId = i.sellerId;
-                    
+                    transaction.Viewed = 0;
+                    transaction.SpecificationId = i.specificationid;
                    double utotal = transaction.Quantity.Value * i.price;
                     transaction.unitTotal = utotal;
-                   Product p= db.Product.Where(a => a.ProductId.Equals(i.productId)).SingleOrDefault();
-                    p.Quantity = p.Quantity - i.userQuantity;
-
+                    ProductSpecification spec = db.ProductSpecification.Where(a => a.SpecificationId.Equals(i.specificationid)).SingleOrDefault();
+                    //  Product p= db.Product.Where(a => a.ProductId.Equals(i.productId)).SingleOrDefault();
+                    // p.Quantity = p.Quantity - i.userQuantity;
+                    spec.Quantity = spec.Quantity - i.userQuantity;
                     db.OrderItems.Add(transaction);
                     db.SaveChanges();
                    
@@ -209,6 +302,7 @@ namespace QuickTest.Controllers
 
          ShippingDetail_ModelAndroid shippingdeatil=  JsonConvert.DeserializeObject<ShippingDetail_ModelAndroid>(obj.shippingdetail);
                 customer.Address = shippingdeatil.address;
+                
                 db.SaveChanges();
                 StringResult result = new StringResult();
                 result.Strresult = "SuccessfullySave";
@@ -422,25 +516,28 @@ namespace QuickTest.Controllers
         [HttpPost]
         public JsonResult SaveQuantityInCart(UserIdRecieveModelForAndroid obj)
         {
+           
             // int proid = obj.proid;
             // int userid = obj.userid;
             //int quantity = obj.quantity;
             try
             {
-                Cart c = db.Cart.Where(a => a.UserId.Equals(obj.userid)).SingleOrDefault();
+                 Cart c = db.Cart.Where(a => a.UserId.Equals(obj.userid)).SingleOrDefault();
+                
                 if (c != null)
                 {
-
-                    CartProdescriptionPivot cpdp = db.CartProdescriptionPivot.Where(a => a.ProductId.Equals(obj.proid) && a.CartId.Equals(c.CartId)).SingleOrDefault();
-
-
+                    
+                    CartProdescriptionPivot cpdp = db.CartProdescriptionPivot.Where(a => a.ProductId.Equals(obj.proid) && a.CartId.Equals(c.CartId) && a.SpecificationId.Equals(obj.specificationId)).SingleOrDefault();
+                   
+                
                     cpdp.Quantity = obj.quantity;
 
-                    db.SaveChanges();
+                   
+                     db.SaveChanges();
                     StringResult result = new StringResult();
                     result.Strresult = "SaveSuccessFully";
                     return Json(result);
-
+                   
                 }
                 else
                 {
@@ -453,7 +550,9 @@ namespace QuickTest.Controllers
                 
             }catch(Exception e)
             {
-                return Json("Exception:" + e.Message);
+                StringResult result = new StringResult();
+                result.Strresult = e.Message;
+                return Json(result);
             }
 
 
@@ -808,13 +907,18 @@ namespace QuickTest.Controllers
                 int userid = int.Parse(value.userId);
                 int proid = int.Parse(value.productId);
                 int sellerid= int.Parse(value.sellerid);
+                string color = value.color;
+                string size = value.size;
 
 
-               Cart obj= db.Cart.Where(a => a.UserId.Equals(userid)).SingleOrDefault();
+                int specid = db.ProductSpecification.Where(a => a.ProductId.Equals(proid) && a.ProductColor.Equals(color) && a.ProductSize.Equals(size)).Select(b => b.SpecificationId).SingleOrDefault();
+
+                Cart obj = db.Cart.Where(a => a.UserId.Equals(userid)).SingleOrDefault();
                 if(obj!=null)
                 {
+
                     //CartProdescriptionPivot cpdp=db.CartProdescriptionPivot.Where(a=>a.CartId.Equals(obj.CartId))
-                 CartProdescriptionPivot chek_if_alreadyexists =   db.CartProdescriptionPivot.Where(a => a.ProductId.Equals(proid) && a.CartId.Equals(obj.CartId)).SingleOrDefault();
+                 CartProdescriptionPivot chek_if_alreadyexists =   db.CartProdescriptionPivot.Where(a => a.ProductId.Equals(proid) && a.CartId.Equals(obj.CartId)&&a.SpecificationId.Equals(specid)).SingleOrDefault();
                     if (chek_if_alreadyexists == null)
                     {
                         CartProdescriptionPivot cpdp = new CartProdescriptionPivot();
@@ -822,6 +926,7 @@ namespace QuickTest.Controllers
                         cpdp.ProductId = proid;
                         cpdp.Quantity = 1;
                         cpdp.SellerId = sellerid;
+                        cpdp.SpecificationId = specid;
                         db.CartProdescriptionPivot.Add(cpdp);
                         db.SaveChanges();
                         StringResult result = new StringResult();
@@ -849,6 +954,8 @@ namespace QuickTest.Controllers
                     CartProdescriptionPivot cpdp2 = new CartProdescriptionPivot();
                     cpdp2.CartId = cardobj.CartId;
                     cpdp2.ProductId = proid;
+                    cpdp2.Quantity = 1;
+                    cpdp2.SpecificationId = specid;
                     db.CartProdescriptionPivot.Add(cpdp2);
                     db.SaveChanges();
 
@@ -883,6 +990,148 @@ namespace QuickTest.Controllers
             
 
         }
+
+
+        //[HttpPost]
+        //public JsonResult LoadUserCartProducts(UserIdRecieveModelForAndroid obj)
+        //{
+
+        //    try
+        //    {
+        //        int cartid;
+
+
+        //        //  Cart cart=db.Cart.Where(a => a.UserId.Equals(obj.userid)).SingleOrDefault();
+        //        try
+        //        {
+        //            cartid = db.Cart.Where(a => a.UserId.Equals(obj.userid)).Select(b => b.CartId).SingleOrDefault();
+
+
+
+        //        }
+        //        catch (NullReferenceException e)
+        //        {
+
+        //            StringResult result = new StringResult();
+        //            result.Strresult = "loginfirst";
+        //            return Json(result);
+
+        //        }
+
+
+
+
+        //        //int ids[]=
+
+
+        //        // List<CartProdescriptionPivot> cpdp = db.CartProdescriptionPivot.Where(b => b.CartId.Equals(cartid)).ToList();
+
+
+        //        int?[] ids = db.CartProdescriptionPivot.Where(a => a.CartId.Equals(cartid)).Select(c => c.ProductId).ToArray();
+        //        // int?[] quantities = db.CartProdescriptionPivot.Where(b => b.CartId.Equals(cartid)).Select(d => d.Quantity).ToArray();
+
+        //        List<Product> plist = db.Product.Where(a => ids.Contains(a.ProductId)).ToList();
+        //        int[] quantities = new int[plist.Count];
+        //        int i = 0;
+        //        foreach (Product p in plist)
+        //        {
+        //            quantities[i] = GetUserQuantityofProduct(p.ProductId, cartid);
+
+        //            i++;
+
+        //        }
+        //        List<CartModelForAndroid> cartlist = new List<CartModelForAndroid>();
+        //        CartModelForAndroid temp;
+        //        int index = 0;
+        //        foreach (Product p in plist)
+        //        {
+        //            temp = new CartModelForAndroid
+        //            {
+        //                ProductId = p.ProductId,
+        //                Price = p.Price,
+        //                ProductImage = p.ProductImage,
+        //                Title = p.Title,
+        //                UserQuantity = quantities[index],
+        //                SellerQuantity = p.Quantity,
+        //                SellerId = p.UserId
+
+        //            };
+        //            index++;
+        //            cartlist.Add(temp);
+        //        }
+
+        //        /*
+        //        foreach (Product p in plist )
+        //        {
+        //            temp = new CartModelForAndroid
+        //            {
+        //                ProductId = p.ProductId,
+        //                Price = p.Price,
+        //                ProductImage = p.ProductImage,
+        //                Title = p.Title,
+        //                UserQuantity = quantities[index],
+        //                SellerQuantity = p.Quantity
+        //            };
+        //            index++;
+        //            cartlist.Add(temp);
+        //        }
+        //        */
+        //        return Json(cartlist);
+        //        /* foreach (int i in ids)
+        //         {
+        //             db.Product.Where(a=>a.)
+        //         }
+        //         */
+        //        //db.Product.Where(ids.Contains(a))
+
+
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return Json(e.Message);
+        //    }
+
+
+
+
+
+        //}
+        public int[]  getspecificationids(int pid,int cartId)
+        {
+
+         //   db.CartProdescriptionPivot.Where(a=>a.ProductId.Equals(pid) && a.)
+            int[] specids = db.ProductSpecification.Where(a => a.ProductId.Equals(pid)).Select(b => b.SpecificationId).ToArray();
+
+            return specids;
+        }
+        public JsonResult temp3()
+        {
+            int userid = 2;
+            var k = (from dpdp in db.CartProdescriptionPivot
+                     from sptbl in db.ProductSpecification.Where(b => dpdp.SpecificationId.Equals(b.SpecificationId))
+                     from prods in db.Product.Where(a => dpdp.ProductId.Equals(a.ProductId) && dpdp.CartId.Value.Equals(userid))
+                     select new
+                     {
+                         prods.ProductId,
+                         prods.ProductImage,
+                         prods.Code,
+                         prods.Category,
+                         prods.Description,
+                         prods.Price,
+                         prods.Title,
+                         prods.UserId,
+                         dpdp.SpecificationId,
+                         userquantity = dpdp.Quantity,
+                         sellerquantity = sptbl.Quantity
+
+                     }).ToList();
+
+            return Json(k);
+
+
+        }
+
         [HttpPost]
         public JsonResult LoadUserCartProducts(UserIdRecieveModelForAndroid obj)
         {
@@ -909,64 +1158,58 @@ namespace QuickTest.Controllers
 
                 }
 
+                var t_c_list = (from dpdp in db.CartProdescriptionPivot
+                                from sptbl in db.ProductSpecification.Where(b => dpdp.SpecificationId.Equals(b.SpecificationId))
+
+                                from prods in db.Product.Where(a => dpdp.ProductId.Equals(a.ProductId) && dpdp.CartId.Equals(cartid))
+                                select new
+                                {
+                                    prods.ProductId,
+                                    prods.ProductImage,
+                                    prods.Code,
+                                    prods.Category,
+                                    prods.Description,
+                                    prods.Price,
+                                    prods.Title,
+                                    prods.UserId,
+                                    dpdp.SpecificationId,
+                                    userquantity = dpdp.Quantity,
+                                    dpdp.SellerId,
+                                    sellerquantity = sptbl.Quantity
+
+                                }).ToList();
+
+
+              
+            List<CartModelForAndroid> cartlist = new List<CartModelForAndroid>();
+
+                CartModelForAndroid temp;
+
+
+                foreach (var p in t_c_list)
+                {
+                    ProductSpecification spec = db.ProductSpecification.Where(a => a.SpecificationId.Equals(p.SpecificationId)).SingleOrDefault();
+                    temp = new CartModelForAndroid
+                    {
+                        ProductId = p.ProductId,
+                        Price = p.Price,
+                        ProductImage = p.ProductImage,
+                        Title = p.Title,
+                        UserQuantity = p.userquantity,
+                        SellerQuantity = p.sellerquantity,
+                        specificationid=p.SpecificationId,
+                        color=spec.ProductColor,
+                        size=spec.ProductSize,
+                        SellerId=p.SellerId
+                    };
+
+                    cartlist.Add(temp);
+                }
 
 
 
-                //int ids[]=
-
-
-                // List<CartProdescriptionPivot> cpdp = db.CartProdescriptionPivot.Where(b => b.CartId.Equals(cartid)).ToList();
 
                 
-                int?[] ids    =   db.CartProdescriptionPivot.Where(a => a.CartId.Equals(cartid)).Select(c => c.ProductId).ToArray();
-               // int?[] quantities = db.CartProdescriptionPivot.Where(b => b.CartId.Equals(cartid)).Select(d => d.Quantity).ToArray();
-
-                List<Product> plist=db.Product.Where(a => ids.Contains(a.ProductId)).ToList();
-                int[] quantities = new int[plist.Count];
-                int i = 0;
-                foreach (Product p in plist)
-                {
-                    quantities[i] = GetUserQuantityofProduct(p.ProductId,cartid);
-                    
-                    i++;
-
-                }
-                List<CartModelForAndroid> cartlist = new List<CartModelForAndroid>();
-                CartModelForAndroid temp;
-                int index = 0;
-                foreach (Product p in plist)
-                {
-                    temp = new CartModelForAndroid
-                    {
-                        ProductId = p.ProductId,
-                        Price = p.Price,
-                        ProductImage = p.ProductImage,
-                        Title = p.Title,
-                        UserQuantity = quantities[index],
-                        SellerQuantity = p.Quantity,
-                        SellerId = p.UserId
-                        
-                    };
-                    index++;
-                    cartlist.Add(temp);
-                }
-
-                /*
-                foreach (Product p in plist )
-                {
-                    temp = new CartModelForAndroid
-                    {
-                        ProductId = p.ProductId,
-                        Price = p.Price,
-                        ProductImage = p.ProductImage,
-                        Title = p.Title,
-                        UserQuantity = quantities[index],
-                        SellerQuantity = p.Quantity
-                    };
-                    index++;
-                    cartlist.Add(temp);
-                }
-                */
                 return Json(cartlist);
                    /* foreach (int i in ids)
                     {
@@ -995,7 +1238,7 @@ namespace QuickTest.Controllers
             {
                 Cart cart = db.Cart.Where(a => a.UserId.Equals(obj.userid)).SingleOrDefault();
                 int cartid = cart.CartId;
-               CartProdescriptionPivot cpdp= db.CartProdescriptionPivot.Where(a => a.CartId.Equals(cartid) && a.ProductId.Equals(obj.proid)).SingleOrDefault();
+               CartProdescriptionPivot cpdp= db.CartProdescriptionPivot.Where(a => a.CartId.Equals(cartid) && a.ProductId.Equals(obj.proid) &&a.SpecificationId.Equals(obj.specificationId) ).SingleOrDefault();
                 db.Remove(cpdp);
                 db.SaveChanges();
 
@@ -1229,7 +1472,7 @@ namespace QuickTest.Controllers
             }
             return UsersWithKm;
         }
-
+       
        [HttpPost]///for android
         public JsonResult getsellers(LatLongModel obj)
         {
@@ -1258,9 +1501,16 @@ namespace QuickTest.Controllers
 
 
                    finalsellers   =  GetSortedArray(t.Item1,t.Item2);
+                
+                double rating = 0.0;
+                foreach(User_Km_Pivot seller in finalsellers)
+                {
+                rating =getratingofseller(seller.UserId);
+                    seller.rating = rating;
 
 
-
+                }
+                
 
 
                 return Json(finalsellers);
@@ -1271,6 +1521,84 @@ namespace QuickTest.Controllers
             }
 
 
+        }
+        public double getratingofseller(int user_id)
+        {
+            try
+            {
+               List<Product> list = db.Product.Where(a => a.UserId.Equals(user_id)).ToList();
+                 double count = 1.0;
+                  count = list.Count;
+                  double sumofavgrating = 0.0;
+                double avg = 0.0;
+
+                  foreach (Product p in list)
+                  {
+                      sumofavgrating = sumofavgrating + p.AvgRating.Value;
+
+
+                  }
+
+                avg = sumofavgrating / count;
+                avg=Math.Round(avg, 2);
+
+                if (avg >= 4.75 && avg < 5.0)
+                    avg = 5.0;
+                else if (avg >= 4.5 && avg < 4.75)
+                    avg = 4.5;
+                else if (avg >= 4.25 && avg < 4.5)
+                    avg = 4.5;
+                else if (avg >= 4.0 && avg < 4.25)
+                    avg = 4.0;
+                else if (avg >= 3.75 && avg < 4.0)
+                    avg = 4.0;
+                else if (avg >= 3.5 && avg < 3.75)
+                    avg = 3.5;
+                else if (avg >= 3.25 && avg < 3.5)
+                    avg = 3.5;
+                else if (avg >= 3.0 && avg < 3.25)
+                    avg = 3.0;
+                else if (avg >= 2.75 && avg < 3.0)
+                    avg = 3.0;
+                else if (avg >= 2.5 && avg < 2.75)
+                    avg = 2.5;
+                else if (avg >= 2.25 && avg < 2.5)
+                    avg = 2.5;
+                else if (avg >= 2.0 && avg < 2.25)
+                    avg = 2.0;
+                else if (avg >= 1.75 && avg < 2.0)
+                    avg = 2.0;
+                else if (avg >= 1.5 && avg < 1.75)
+                    avg = 1.5;
+                else if (avg >= 1.25 && avg < 1.5)
+                    avg = 1.5;
+                else if (avg >= 1.0 && avg < 1.25)
+                    avg = 1.0;
+                else if (avg >= 0.75 && avg < 1.0)
+                    avg = 1.0;
+                else if (avg >= 0.5 && avg < 0.75)
+                    avg = 0.5;
+                else if (avg >= 0.25 && avg < 0.5)
+                    avg = 0.5;
+                else
+                    avg = 0.0;
+
+
+
+
+                return avg;
+              //  return Json(list);
+                    
+
+
+
+            } catch(Exception e)
+            {
+                return  0.0;
+                  
+                //return Json(0.0);
+
+            }
         }
         public double getdistancefromseller(LatLongModel obj)
         {

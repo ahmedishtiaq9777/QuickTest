@@ -10,10 +10,11 @@ namespace QuickTest.Models
         public int? OrderId { get; set; }
         public int? CartId { get; set; }
         public int? Quantity { get; set; }
-        public int? ProDesId { get; set; }
+        public int? SpecificationId { get; set; }
         public int? UserId { get; set; }
         public double? unitTotal { get; set; }
         public int? SellerId { get; set; }
+        public int? Viewed { get; set; }
 
         public virtual Cart Cart { get; set; }
         public virtual Order Order { get; set; }

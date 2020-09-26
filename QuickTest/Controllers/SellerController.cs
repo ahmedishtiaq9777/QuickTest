@@ -98,7 +98,118 @@ namespace tryproj1._1.Controllers
         public PartialViewResult returnOrders()
         {
 
+            try
+            {
+                if(HttpContext.Session.GetString("phone")!=null)
+                {
+                   string phone= HttpContext.Session.GetString("phone");
 
+
+
+
+
+
+                    int sid = db2.Usertable.Where(a => a.PhoneNo.Equals(phone) && a.UserType.Equals("S")).Select(b => b.UserId).SingleOrDefault();
+
+                    List<int> orderids = db2.OrderItems.Where(a => a.SellerId.Equals(sid) &&  a.Viewed.Equals(0)).Select(b => b.OrderId.Value).ToList();
+                    List<int> removedublicate = orderids.Distinct().ToList();
+                    List<Order> _orlist = getorderwithorderids(removedublicate);
+
+                    var data = (from Order in _orlist
+                                join Usertable in db2.Usertable
+                                on Order.UserId equals Usertable.UserId
+
+
+                                select new
+                                {
+                                    orderid = Order.OrderId,
+                                    userid = Usertable.UserId,
+                                    name = Usertable.Firstname + " " + Usertable.Lastname,
+                                    phone = Usertable.PhoneNo,
+                                    address = Usertable.Address,
+                                    total = Order.Total,
+                                    
+                                    state = Order.Status,
+                                    date = Order.Date,
+                                    photo=(Usertable.Logo != null) ? Usertable.Logo : "null"
+
+
+                }).ToList();
+
+                    List<OrderViewModel> olist = new List<OrderViewModel>();
+
+                    OrderViewModel obj;
+
+                    foreach (var i in data)
+                    {
+                        obj = new OrderViewModel();
+                        obj.Orderid = i.orderid;
+                        obj.userid = i.userid;
+                        obj.user_name = i.name;
+                        obj.phone = i.phone;
+                        obj.address = i.address;
+                        obj.total = i.total.Value;
+                        obj.status = i.state;
+                        obj.orderdate = i.date.Value;
+                        if (i.photo != null || i.photo != "")
+                        {
+                            obj.image = i.photo;
+                        }
+                        else 
+                        {
+                            obj.image = "null";
+                        }
+                        olist.Add(obj);
+
+                    }
+
+
+                    List<OrderViewModel> olist2 = new List<OrderViewModel>();
+                    List<Title_proid> list = null;
+
+                    foreach (OrderViewModel i in olist)
+                    {
+                        list = getproductswithorderid(i.Orderid);
+                        i.products = list;
+
+                        olist2.Add(i);
+
+
+
+                    }
+
+                    return PartialView("order_partial",olist);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+                else
+                {
+
+
+                }
+
+            }catch(Exception e)
+            {
+
+
+            }
 
 
 
@@ -476,7 +587,7 @@ namespace tryproj1._1.Controllers
 
                 String URI = "http://sendpk.com" +
     "/api/sms.php?" +
-    "username=" + "923006103303" +
+    "username=" + "923054992224" +
     "&password=" + "ahmedishtiaq9777" +
     "&sender=" + "QuickMart" +
     "&mobile=" + number + "&message=" + Uri.UnescapeDataString(MessageText); // Visual Studio 10-15 
@@ -507,15 +618,18 @@ namespace tryproj1._1.Controllers
                     else if (firstch == '7')
                     {
 
-                        ViewBag.error = "7";
+                        ViewBag.key = "a";
+                        TempData["error"] = "Your Phone Number is Invalid";
                         //return View();
                         //   return Json("Your Phone Number is invalid");
-                        return Json(result);
+                        return View("signup");
                     }
                     else if (firstch == '8')
                     {
+                        ViewBag.key = "a";
                         System.Diagnostics.Debug.WriteLine("SMS Balance Out");
-                        return Json("SmS Balance out");
+                        TempData["error"] = "SMS Balance Out";
+                        return View();
                         // Console.Write("SMS Balance Out");
                     }
 
@@ -560,7 +674,13 @@ namespace tryproj1._1.Controllers
 
         public IActionResult Login()
         {
+            try
+            {
+                ViewBag.forgetpass = TempData["passwordreset"];
+            }catch(NullReferenceException e)
+            {
 
+            }
             ViewBag.error=TempData["error"];
 
             ViewData["Message"] = "Your application description page.";
@@ -756,8 +876,42 @@ namespace tryproj1._1.Controllers
             }
 
         }
+        [HttpGet]
+        public int OrderViewed(int id)
+        {
+            try
+            {
+                if(HttpContext.Session.GetString("phone")!=null)
+                {
+                   String phone= HttpContext.Session.GetString("phone");
+                 Usertable user=   db2.Usertable.Where(a => a.PhoneNo.Equals(phone) && a.UserType.Equals("S")).SingleOrDefault();
+                List<OrderItems> orderItems=   db2.OrderItems.Where(a => a.OrderId.Equals(id) && a.SellerId.Equals(user.UserId)).ToList();
+                    int index = 0;
+                    foreach (OrderItems i in orderItems)
+                    {
 
+                       i.Viewed = 1;
+                       
+                       
+                        
+                      
+                    }
+                    db2.UpdateRange(orderItems);
+                    db2.SaveChanges();
+                    return 1;
 
+                }
+                else
+                {
+                    return 0;
+                }
+            }catch(Exception e)
+            {
+                return 2;
+
+            }
+
+        }
 
         [HttpPost]
         public IActionResult EditOrderInfo(OrderViewModel model)
@@ -1228,7 +1382,7 @@ namespace tryproj1._1.Controllers
                     HttpContext.Session.SetInt32("proid", id);
                     
                     TempData["proid"] = id;
-                    return RedirectToAction("prosizecolor");
+                    return RedirectToAction("prosizecolor",id);
 
                 }
                 catch (Exception e)
@@ -1256,12 +1410,15 @@ namespace tryproj1._1.Controllers
 
             }
         }
-        public IActionResult prosizecolor()
+        [HttpGet]
+        public IActionResult prosizecolor(int proid)
         {
+
             try
             {
                 if (HttpContext.Session.GetString("phone") != null)
                 {
+                    HttpContext.Session.SetInt32("proid", proid); 
 
                     if (HttpContext.Session.GetInt32("proid") != null)
                     {
@@ -1304,8 +1461,9 @@ namespace tryproj1._1.Controllers
 
                     db2.ProductSpecification.Add(obj);
                     db2.SaveChanges();
-                    TempData["proid"] = HttpContext.Session.GetInt32("proid");
-                    return RedirectToAction("prosizecolor");
+                    int pid = obj.ProductId;
+                  //  TempData["proid"] = HttpContext.Session.GetInt32("proid");
+                    return RedirectToAction("prosizecolor",new { proid=pid});
                 }
                 else
                 {
@@ -1530,6 +1688,208 @@ namespace tryproj1._1.Controllers
             return View();
         }
         [HttpGet]
+        public IActionResult SetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult SetPassword(string Password)
+        {
+            try {
+                string phone=Request.Cookies["tempphoneF"];
+                Usertable user = db2.Usertable.Where(a => a.UserType.Equals("S") && a.PhoneNo.Equals(phone)).SingleOrDefault();
+                user.Password = Password;
+                db2.SaveChanges();
+                TempData["passwordreset"] = true;
+                return RedirectToAction("Login");
+
+
+
+            } catch(Exception e)
+            {
+                ViewBag.key = "a";
+                TempData["error"] = e.Message;
+                return View();
+
+            }
+
+
+        }
+        [HttpGet]
+        public IActionResult EntercodeForgetPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult EntercodeForgetPassword(String code)
+        {
+            try
+            {
+
+                String tcode = HttpContext.Session.GetString("VarificationF");
+                if (code.Equals(tcode))
+                {
+                    HttpContext.Session.Remove("VarificationF");
+                    return RedirectToAction("SetPassword");
+                }
+                else
+                {
+                    ViewBag.error = "NotMatch";
+                    return View();
+                }
+            }
+            catch (NullReferenceException e)
+            {
+                ViewBag.error = e.Message;
+                return View();
+
+            }
+
+
+
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ForgetPassword()
+        {
+            return View("forgetpassword");
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgetPassword(string number)
+        {
+
+            string s = "0";
+            string tempnumber = s + number;
+            try
+            {
+                Usertable user = null;
+                user = db2.Usertable.Where(a => a.PhoneNo.Equals(tempnumber) && a.UserType.Equals("S")).SingleOrDefault();
+                if(user!=null)
+                {
+
+                    Random n = new Random();
+                    String randomnumber = (n.Next(100000, 999999)).ToString();
+
+
+                    String MessageText = "Your varification code is " + randomnumber;
+
+                    String URI = "http://sendpk.com" +
+        "/api/sms.php?" +
+        "username=" + "923054992224" +
+        "&password=" + "ahmedishtiaq9777" +
+        "&sender=" + "QuickMart" +
+        "&mobile=" + number + "&message=" + Uri.UnescapeDataString(MessageText); // Visual Studio 10-15 
+
+                    try
+                    {
+
+
+
+                        WebRequest req = WebRequest.Create(URI);
+                        WebResponse resp = await req.GetResponseAsync();
+                        var sr = new System.IO.StreamReader(resp.GetResponseStream());
+
+                        String result = sr.ReadToEnd().Trim();
+                        char firstch = result[0];
+                        if (result.Contains("OK"))
+                        {
+                            HttpContext.Session.SetString("VarificationF", randomnumber);
+                            // HttpContext.Session.SetString("phone", number);
+
+                            CookieOptions option = new CookieOptions();
+                            option.Expires = DateTime.Now.AddDays(1);
+                            Response.Cookies.Append("tempphoneF", tempnumber, option);
+                            //  TempData["phone"] = number;
+
+                            return RedirectToAction("EnterCodeForgetPassword");
+                        }
+                        else if (firstch == '7')
+                        {
+                            ViewBag.key = "a";
+                            TempData["error"] = "Your Phone Number is Invalid";
+                            //return View();
+                            //   return Json("Your Phone Number is invalid");
+                            return View();
+                        }
+                        else if (firstch == '8')
+                        {
+                            System.Diagnostics.Debug.WriteLine("SMS Balance Out");
+                            return Json("SmS Balance out");
+                            // Console.Write("SMS Balance Out");
+                        }
+
+                    }
+                    catch (WebException ex)
+                    {
+                        var httpWebResponse = ex.Response as HttpWebResponse;
+                        if (httpWebResponse != null)
+                        {
+                            switch (httpWebResponse.StatusCode)
+                            {
+                                case HttpStatusCode.NotFound:
+                                    return Json("404:URL not found :" + URI);
+                                    break;
+                                case HttpStatusCode.BadRequest:
+                                    return Json("400:Bad Request");
+                                    break;
+                                case HttpStatusCode.OK:
+                                    return Json("ok");
+                                default:
+                                    return Json(httpWebResponse.StatusCode.ToString());
+
+
+
+
+
+
+
+                            }
+                        }
+                    }
+
+                    return null;
+
+
+
+
+
+                }
+                else
+                {
+                    ViewBag.key = "a";
+                    TempData["error"] = "This Number is Not Registered";
+                    return View();
+
+                }
+
+
+            }catch(Exception e)
+            {
+                ViewBag.key = "a";
+                TempData["error"] = e.Message;
+                return View();
+            }
+
+
+
+                // number=number.Substring(1, 10);
+                //  number= String.Concat("92", number);
+                //  number = "92" + number;
+               
+
+
+
+
+
+        }
+
+
+
+
+        [HttpGet]
         public IActionResult Entercode()
         {
 
@@ -1568,19 +1928,7 @@ namespace tryproj1._1.Controllers
 
            // return View();
         }
-
-        
-        [HttpPost]
-       public IActionResult forgetpassword(string Email )
-        {
-           
-                ViewBag.email = Email;
-                return View();
-               // HttpContext.Session.se
-
-                //db2.Usertable.Where(a=>a.em)
-           
-        }
+      
         public IActionResult HomePage()
         {
             Usertable o = new Usertable();

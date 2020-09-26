@@ -204,7 +204,7 @@ namespace QuickTest.Models
                 entity.Property(e => e.Total).HasColumnName("total");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
-
+               
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Order)
                     .HasForeignKey(d => d.UserId)
@@ -225,7 +225,7 @@ namespace QuickTest.Models
 
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
 
-                entity.Property(e => e.ProDesId).HasColumnName("pro_des_id");
+                entity.Property(e => e.SpecificationId).HasColumnName("specification_id");
 
                 entity.Property(e => e.ProId).HasColumnName("pro_id");
 
@@ -233,6 +233,7 @@ namespace QuickTest.Models
                 entity.Property(e => e.SellerId).HasColumnName("seller_id");
                 entity.Property(e => e.UserId).HasColumnName("user_id");
                 entity.Property(e => e.unitTotal).HasColumnName("unit_total");
+                entity.Property(e => e.Viewed).HasColumnName("viewed");
 
                 entity.HasOne(d => d.Cart)
                     .WithMany(p => p.OrderItems)
@@ -305,6 +306,8 @@ namespace QuickTest.Models
                 entity.Property(e => e.ProductSize)
                     .HasColumnName("product_size")
                     .HasMaxLength(50);
+
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.ProductSpecification)

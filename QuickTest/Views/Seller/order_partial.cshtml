@@ -1,22 +1,48 @@
+@using  QuickTest.Models.SellerViewModels;
+@model List<QuickTest.Models.SellerViewModels.OrderViewModel>
+@*<span class="pull-right"><i class="fas fa-sync-alt" style="font-size:24px"></i></span>*@
+@if (Model.Equals("") || Model.Equals(null) || Model.Equals("[]"))
+{
+    <span class="pull-right">Empty</span>
+}
+@foreach (OrderViewModel p in Model)
+{
+    <span class="float-right text-sm iconn" style="line-height:0px;"><i class="fas fa-times-circle"></i></span>
+    <a href="#" class="dropdown-item" style="margin-top:0px;">
 
-
-    <a href="#" class="dropdown-item">
         <!-- Message Start -->
+        <span style="visibility:hidden;line-height:0px;" class="orderid">@p.Orderid</span>
         <div class="media">
-            <img src="/css/ltdtheme/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+            @*<img src="@p.image"  class="img-size-50 mr-3 img-circle userimage" />*@
+            @{ if (p.image != "null")
+                {<img src="@p.image" class="img-size-50 mr-3 img-circle img">
+
+                }
+                else
+                {
+
+                    <img src="~/img/icons/user_male2-512.webp" class="img-size-50 mr-3 img-circle img" />
+
+                }
+            }
             <div class="media-body">
                 <h3 class="dropdown-item-title">
-                    Brad Diesel
-                    <span class="float-right text-sm text-danger"><i class="fas fa-cross"></i></span>
+                    @p.user_name
+                    <!--icon-->
                 </h3>
-                <p class="text-sm">Title 1,Title 2,Title 3</p>
+                <p class="text-sm">
+                    @foreach (Title_proid t in p.products)
+                    {<span>@t.title,&nbsp;&nbsp;</span>}
+                </p>
                 @*<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>*@
             </div>
         </div>
         <!-- Message End -->
     </a>
     <div class="dropdown-divider"></div>
-  
-   
-   
-    <a asp-controller="seller" asp-action="OrderList" class="dropdown-item dropdown-footer">See All Orders</a>
+}
+<a asp-controller="seller" asp-action="OrderList" class="dropdown-item dropdown-footer">See All Orders</a>
+
+
+
+

@@ -72,7 +72,7 @@
                                 <option value="43">43</option>
                                 <option value="44">44</option>
                                 <option value="45">45</option>
-                               
+
 
 
 
@@ -86,8 +86,15 @@
                     <div class="form-group">
                         <label asp-for="Item1.ProductColor" class="col-md-2 control-label"></label>
                         <div class="col-md-10">
-                            <input asp-for="Item1.ProductColor"  name="ProductColor"class="form-control" />
+                            <input asp-for="Item1.ProductColor" name="ProductColor" class="form-control" />
                             <span asp-validation-for="Item1.ProductColor" class="text-danger" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Item1.Quantity" class="col-md-2 control-label"></label>
+                        <div class="col-md-10">
+                            <input asp-for="Item1.Quantity" min="1" type="number" name="Quantity" class="form-control" />
+                            <span asp-validation-for="Item1.Quantity" class="text-danger" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -99,7 +106,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Add Size"  class="btn btn-default" />       <a class="btn btn-default" asp-action="Addproduct">Done Sizing</a>
+                            <input type="submit" value="Add Size" class="btn btn-default" />       <a class="btn btn-default" asp-action="Addproduct">Done Sizing</a>
 
                         </div>
 

@@ -18,6 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="~/css/ltdtheme/plugins/fontawesome-free/css/all.min.css">
+        @*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*@
         <!-- Ionicons -->
         <!-- Tempusdominus Bbootstrap 4 -->
         <link rel="stylesheet" href="~/css/ltdtheme/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
@@ -119,7 +120,7 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
 
         @*<script src="~/css/homepage/js/global.js"></script>*@
-       
+
         @RenderSection("scriptscdn", required: false)
 
 
@@ -140,46 +141,76 @@
 
 
 
+                //$("body").on("click", ".dropdown-item", function () {
+
+
+                //});
+
+                //$(".wrapper").find(".dropdown-item").click(function () {
+                //    alert(sdsd);
+                //});
 
 
 
 
 
 
+                //$("body").on("click", ".userimage", function () {
+
+                //    alert("ahmedalert");
+                //});
 
 
+                //$("body").on("error", ".userimage", function () {
+
+                //    alert("ahmedalert");
+                //});
 
 
+                //$(".wrapper").find(".userimage").on("error", function () {
+                //    alert("kmkm");
+                //});
 
+             
 
+   
+       
+            $("body").on("click", ".img", function () {
+                //   alert("kkk");
+                var orderid = $(this).parent().parent().find(".orderid").html();
+                alert(orderid);
+                window.location.href = '/seller/OrderDetail?id='+orderid;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                $("#ordersicon,#ordertext,#iconn").click(function () {
-
-
-
-
-
+            });
+     
+                $("body").on("click", ".iconn", function () {
+                 //   alert("iconn");
+                    //   var orderid = $(this).parent().parent().parent().parent().find("span").html();
+                    var orderid = $(this).next(".dropdown-item").children(".orderid").html();
+                  
+                    $(this).next(".dropdown-item").remove();
+                    $(this).remove();
+                  //  alert(orderid);
+                    //$(this).parent().parent().parent().parent().remove();
+                  //  alert(al);
+                   
                     $.ajax({
 
                         type: "get",
-                        url: "/Seller/returnOrders/",
+                        url: "/Seller/OrderViewed/",
+                        data: { id: orderid },
 
                         success: function (data) {
-                            $("#ordersdrop").html(data);
+
+                            if (data == 1) {
+                               
+                               
+                            } else if (data == 0) {
+                                alert("0");
+                                window.location.href = '/seller/login';
+                            } else if (data == 2) {
+                                
+                            }
 
 
 
@@ -190,60 +221,99 @@
                     });
 
 
+
+
                 });
 
-
-
-
-                //$(".wrapper").find("#allpro").click(function () {
-
-                //    var allpro = $(".wrapper").find("#allpro2");
-                //    var sidebar = $(".wrapper").find(".sidebar");
-
-                //    var alreadyselected = sidebar.find(".active");
-                //   // var ht = alreadyselected.html();
-                //   // alert(ht);
-                //    alreadyselected.removeClass("active");
-                //    allpro.addClass("active");
-                // //   alert("ahmed2");
+        
+  
 
 
 
 
 
-                //});
-                //$(".wrapper").find("#dash").click(function () {
-
-                //    var dash = $(".wrapper").find("#dash2");
-                //  //  var ht = dash.html();
-                //   // alert(ht);
-                //    var sidebar = $(".wrapper").find(".sidebar");
-
-
-                //    var alreadyselected = sidebar.find(".active");
-                //   // var ht2 = alreadyselected.html();
-                //    //alert(ht2);
-                // //   alert(alreadyselected.html());////////
-                //    alreadyselected.removeClass("active");
-                //    dash.addClass("active");
-
-
-
-                //});
 
 
 
 
-            });
-
-
-
-        </script>
+    $("#ordersicon,#ordertext,#iconn").click(function () {
 
 
 
 
-        @RenderSection("scripts", required: false)
+
+    $.ajax({
+
+    type: "get",
+    url: "/Seller/returnOrders/",
+
+    success: function (data) {
+    $("#ordersdrop").html(data);
+
+
+
+
+
+
+    }
+    });
+
+
+    });
+
+
+
+
+    //$(".wrapper").find("#allpro").click(function () {
+
+    //    var allpro = $(".wrapper").find("#allpro2");
+    //    var sidebar = $(".wrapper").find(".sidebar");
+
+    //    var alreadyselected = sidebar.find(".active");
+    //   // var ht = alreadyselected.html();
+    //   // alert(ht);
+    //    alreadyselected.removeClass("active");
+    //    allpro.addClass("active");
+    // //   alert("ahmed2");
+
+
+
+
+
+    //});
+    //$(".wrapper").find("#dash").click(function () {
+
+    //    var dash = $(".wrapper").find("#dash2");
+    //  //  var ht = dash.html();
+    //   // alert(ht);
+    //    var sidebar = $(".wrapper").find(".sidebar");
+
+
+    //    var alreadyselected = sidebar.find(".active");
+    //   // var ht2 = alreadyselected.html();
+    //    //alert(ht2);
+    // //   alert(alreadyselected.html());////////
+    //    alreadyselected.removeClass("active");
+    //    dash.addClass("active");
+
+
+
+    //});
+
+
+
+
+    });
+
+
+
+    </script>
+
+
+
+
+    @RenderSection("scripts", required: false)
+
     </environment>
 
 

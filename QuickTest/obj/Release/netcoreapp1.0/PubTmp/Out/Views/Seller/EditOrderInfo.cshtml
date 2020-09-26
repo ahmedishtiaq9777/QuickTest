@@ -32,41 +32,48 @@
             
             <div class="row">
                 <div class="col-md-4">
-                    <form asp-action="EditOrderInfo">
+                    <form asp-action="EditOrderInfo" method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="Item1.Orderid" class="control-label"></label>
-                            <input asp-for="Item1.Orderid" class="form-control" readonly />
+                            <input asp-for="Item1.Orderid" name="Orderid" class="form-control" readonly />
                             <span asp-validation-for="Item1.Orderid" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label asp-for="Item1.userid" class="control-label"></label>
-                            <input asp-for="Item1.userid" class="form-control" readonly />
+                            <input asp-for="Item1.userid" name="userid" class="form-control" readonly />
                             <span asp-validation-for="Item1.userid" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label asp-for="Item1.user_name" class="control-label"></label>
                             <input asp-for="Item1.user_name" class="form-control" />
                             <span asp-validation-for="Item1.user_name" class="text-danger"></span>
-                        </div>
+                        </div>*@
                         @*<div class="form-group">
                             <label asp-for="phone" class="control-label"></label>
                             <input asp-for="phone" class="form-control" readonly />
                             <span asp-validation-for="phone" class="text-danger"></span>
                         </div>*@
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label asp-for="Item1.address" class="control-label"></label>
                             <input asp-for="Item1.address" class="form-control" />
                             <span asp-validation-for="Item1.address" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
+                        </div>*@
+                        @*<div class="form-group">
                             <label asp-for="Item1.total" class="control-label"></label>
                             <input asp-for="Item1.total" class="form-control" />
                             <span asp-validation-for="Item1.total" class="text-danger"></span>
-                        </div>
+                        </div>*@
                         <div class="form-group">
                             <label asp-for="Item1.status" class="control-label"></label>
-                            <input asp-for="Item1.status" class="form-control" />
+                            <select asp-for="Item1.status"  name="status" class="form-control" >
+                                
+
+                                <option value="NotReady">Not Ready</option>
+                                <option value="Ready">Ready</option>
+                                
+
+                                    </select>
                             <span asp-validation-for="Item1.status" class="text-danger"></span>
                         </div>
                         @*<div class="form-group">

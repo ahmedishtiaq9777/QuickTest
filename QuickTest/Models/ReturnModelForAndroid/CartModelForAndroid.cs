@@ -14,6 +14,10 @@ namespace QuickTest.Models.ReturnModelForAndroid
         public int? UserQuantity { get; set; }
         public int? SellerQuantity { get; set; }
         public int? SellerId { get; set; }
+        public int? specificationid { get; set; }
+        public string color { get; set; }
+        public string size { get; set; }
+       
 
 
 

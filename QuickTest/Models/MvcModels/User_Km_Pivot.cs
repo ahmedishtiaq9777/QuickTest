@@ -13,6 +13,7 @@ namespace QuickTest.Models.MvcModels
         public string Address { get; set; }
         public double d_kilometers { get; set; }
         public string contact { get; set; }
+        public double rating { get; set; }
 
     }
 }

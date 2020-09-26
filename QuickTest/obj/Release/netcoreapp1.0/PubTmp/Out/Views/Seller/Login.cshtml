@@ -47,7 +47,10 @@
         <span class="fa ">login</span>
     </div>
     <div class="content-bottom">
+
         <form asp-action="loginn" asp-controller="Seller" method="post">
+            @if(ViewBag.forgetpass==true)
+            { <h3 style="background-color:yellowgreen;color:white;">Your Password has been  Reset Please  Login with New Password</h3>  }
             <div class="field-group">
                  <span class="fa fa-phone" aria-hidden="true"></span>
                 <div class="wthree-field">
@@ -73,7 +76,7 @@
             <div class="row">
 
                 <a asp-action="signup" style="color:white;" class="pull-left col-6 col-lg-5" id="createshop">Create Shop</a>
-                <a href="#" id="forget" style="color:white;"class="pull-right col-6 col-lg-5">forgot password?</a>
+                <a asp-action="ForgetPassword"  id="forget" style="color:white;"class="pull-right col-6 col-lg-5">forgot password?</a>
             </div>
            
          

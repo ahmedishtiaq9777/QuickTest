@@ -17,6 +17,9 @@ namespace QuickTest.Models.ModelsForAndroid
         public string filename { get; set; }
         public string shippingdetail { get; set; }
         public string orderedproducts { get; set; }
+        public int specificationId { get; set; }
+        public string color { get; set; }
+        public string size { get; set; }
       
         
     }

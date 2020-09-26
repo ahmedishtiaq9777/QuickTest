@@ -63,28 +63,31 @@
                 <tbody>
                     @foreach (var item in Model.Item1)
                     {
-                        <tr>
-                            <td>
-                                <img style="height:60px;width:60px;" src="http://ahmedishtiaq165-001-site1.ftempurl.com/@item.ProductImage" />
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Code)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Price)
-                            </td>
+                    <tr>
+                        <td>
+                            <img style="height:60px;width:60px;" src="http://ahmedishtiaq165-001-site1.ftempurl.com/@item.ProductImage" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Category)
-                            </td>
-
-                        </tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Remove", "RemoveProduct", new { id = item.ProductId,userid=item.UserId })
+                           
+                        </td>
+                    </tr>
                     }
                 </tbody>
             </table>
