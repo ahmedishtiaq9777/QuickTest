@@ -587,7 +587,7 @@ namespace tryproj1._1.Controllers
 
                 String URI = "http://sendpk.com" +
     "/api/sms.php?" +
-    "username=" + "923054992224" +
+    "username=" + "03338767324" +
     "&password=" + "ahmedishtiaq9777" +
     "&sender=" + "QuickMart" +
     "&mobile=" + number + "&message=" + Uri.UnescapeDataString(MessageText); // Visual Studio 10-15 
@@ -1778,7 +1778,7 @@ namespace tryproj1._1.Controllers
 
                     String URI = "http://sendpk.com" +
         "/api/sms.php?" +
-        "username=" + "923054992224" +
+        "username=" + "03338767324" +
         "&password=" + "ahmedishtiaq9777" +
         "&sender=" + "QuickMart" +
         "&mobile=" + number + "&message=" + Uri.UnescapeDataString(MessageText); // Visual Studio 10-15 
