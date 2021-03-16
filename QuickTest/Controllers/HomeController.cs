@@ -739,14 +739,14 @@ namespace QuickTest.Controllers
                 if (!user.Logo.Equals(null))
                 {
 
-                    int i=user.Email.IndexOf('@');
+                   /* int i=user.Email.IndexOf('@');
                     if(i>0)
                     {
                            usernamee   =  user.Email.Substring(0,i);
-                    }
+                    }*/
                     StringResult result = new StringResult();
                     result.Strresult = user.Logo;
-                    result.username = usernamee;
+                 //   result.username = usernamee;
                   
                     return Json(result);
                 }
@@ -788,16 +788,16 @@ namespace QuickTest.Controllers
                 usertable.Logo = "/img/products/" + obj.filename;
                 db.SaveChanges();
 
-                string usernamee = null; 
+                /*string usernamee = null; 
                 int i = usertable.Email.IndexOf('@');
                 if (i > 0)
                 {
                   usernamee =usertable.Email.Substring(0, i);
-                }
+                }*/
                 StringResult result = new StringResult();
                 result.Strresult ="updated";
                 result.logo = usertable.Logo;
-                result.username = usernamee;
+                //result.username = usernamee;
 
                 return Json(result);
                 /*StringResult result = new StringResult();
@@ -1483,7 +1483,7 @@ namespace QuickTest.Controllers
             //  List<Distance_User> userid_distance = new List<Distance_User>();
             try
             {
-                ulist = db.Usertable.Where(a => a.UserType.Equals("S") && !a.SellerDetails.Equals(0)).ToList();
+                ulist = db.Usertable.Where(a => a.UserType.Equals("S") && !a.SellerDetails.Equals(0) && !a.IsBlocked.Value.Equals(1)).ToList();
 
 
                    var t =GetnearBysellerswithBoundry(ulist,obj); // unsortedlist of user  with  distance kilometer
@@ -1731,14 +1731,96 @@ namespace QuickTest.Controllers
             //  IList<Product> list = db.Product.Where(a => a.UserId == userid).ToList();
           
 
-        }[HttpGet]
+        }
+        [HttpGet]
         public JsonResult getrecommendedproduct()
         {
             try
             {
-                List<Product> list = db.Product.Where(a => a.Category.Equals("Recommend")).ToList();
+
+                List<Product> list = db.Product.Where(a => a.AvgRating >= 2.5).OrderByDescending(b => b.AvgRating).Take(6).ToList();
+
+
+                //    List<Product> list = db.Product.Where(a => a.Category.Equals("Recommend")).ToList();
                 return Json(list);
-            }catch(Exception e)
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+
+            }
+        }
+        [HttpPost]
+        public JsonResult getrecommendedproduct(UserIdRecieveModelForAndroid obj)
+        {
+            try
+            {
+
+
+
+
+
+                List<Product> finallist = new List<Product>();
+
+                if(obj.modeldata.Equals("")||obj.modeldata.Equals(" "))
+                {
+                    List<Product> templist= db.Product.Take(8).ToList();
+                    finallist.AddRange(templist);
+                    return Json(finallist);
+                }
+
+
+                List<ModelData> list = JsonConvert.DeserializeObject<List<ModelData>>(obj.modeldata);
+
+                if (list.Count == 1)
+                {
+                   ModelData oneitem= list.OrderByDescending(b => b.NOV).Take(1).SingleOrDefault();
+                   List<Product> templist= db.Product.Where(a => a.Category.Equals(oneitem.category)).Take(7).ToList();
+                    finallist.AddRange(templist);
+                    return Json(finallist);
+                }
+                else if (list.Count == 2)
+                {
+                    List<ModelData> modeltemplist = list.OrderByDescending(a => a.NOV).Take(2).ToList();
+                    List<Product> templist = null;
+                    foreach (ModelData m in modeltemplist)
+                    {
+                        templist = new List<Product>();
+
+                        templist = db.Product.Where(a => a.Category.Equals(m.category)).Take(3).ToList();
+                        finallist.AddRange(templist);
+                       
+
+                    }
+                    return Json(finallist);
+
+                }
+                else {
+                    List<ModelData> sortedlist = list.OrderByDescending(a => a.NOV).Take(3).ToList();
+
+                    ModelData firstlargest = sortedlist.OrderByDescending(b => b.NOV).First();
+                    ModelData MIDDLE = sortedlist.ElementAt(1);
+                    ModelData smallest = sortedlist.OrderByDescending(b => b.NOV).Last();
+
+                    List<Product> templist= db.Product.Where(a => a.Category.Equals(firstlargest.category)).Take(7).ToList();
+                    List<Product> templist2 = db.Product.Where(a => a.Category.Equals(smallest.category)).Take(4).ToList();
+                    List<Product> templist3 = db.Product.Where(a => a.Category.Equals(MIDDLE.category)).Take(2).ToList();
+
+
+
+
+                    finallist.AddRange(templist);
+                    finallist.AddRange(templist2);
+                    finallist.AddRange(templist3);
+                    return Json(finallist);
+
+
+
+
+                        }
+
+            }
+            catch (Exception e)
             {
                 return Json(e.Message);
 

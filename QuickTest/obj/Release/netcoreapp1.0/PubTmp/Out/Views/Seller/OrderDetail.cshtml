@@ -1,5 +1,5 @@
 ﻿@using QuickTest.Models.SellerViewModels;
-@model Tuple<List<Product>, Basedashboard>
+@model Tuple<List<ProductViewModel>, Basedashboard>
 
 @{
     ViewData["Title"] = "orderdetail";
@@ -58,6 +58,12 @@
                         <th>
                             Category
                         </th>
+                        <th>
+                            Color
+                        </th>
+                        <th>
+                            Size
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -65,7 +71,7 @@
                     {
                     <tr>
                         <td>
-                            <img style="height:60px;width:60px;" src="http://ahmedishtiaq165-001-site1.ftempurl.com/@item.ProductImage" />
+                            <img style="height:60px;width:60px;" src="http://quickmart-001-site1.etempurl.com/@item.ProductImage" />
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Code)
@@ -84,8 +90,14 @@
                             @Html.DisplayFor(modelItem => item.Category)
                         </td>
                         <td>
-                            @Html.ActionLink("Remove", "RemoveProduct", new { id = item.ProductId,userid=item.UserId })
-                           
+                            @Html.DisplayFor(modelItem => item.color)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.size)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Remove", "RemoveProduct", new { id = item.ProductId, userid = item.UserId ,specid=item.specificationid,orderid=item.OrderId })
+
                         </td>
                     </tr>
                     }

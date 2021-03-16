@@ -1,0 +1,58 @@
+@model IEnumerable<QuickTest.Models.Product>
+
+    <h3> Product List</h3>
+        <h4 class=" fa fa-plus"> <a asp-action="Upload">Add new</a></h4>
+    
+    <div class="container">
+        <div class=" col-lg-9">
+            @foreach (Product p in Model)
+            {
+                <div class="col-md-3 col-sm-3 col-lg-4">
+                    <div class="thumbnail store style1">
+                        <div class="header">
+                            <div class="badges">
+                                <span class="product-badge top left primary-background text-white semi-circle">Rating</span>
+                                <span class="product-badge top right text-warning">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-half-o"></i>
+                                </span>
+                            </div>
+                            <figure>
+                                <a>
+                                    <img src="@p.ProductImage" alt="">
+
+                                </a>
+                            </figure>
+                            @*<div class="icons">
+                                    <a class="icon semi-circle" href="javascript:void(0);"><i class="fa fa-heart-o"></i></a>
+                                    <a class="icon semi-circle" href="javascript:void(0);"><i class="fa fa-gift"></i></a>
+                                    <a class="icon semi-circle" href="javascript:void(0);" data-toggle="modal" data-target=".productQuickView"><i class="fa fa-search"></i></a>
+                                </div>*@
+                        </div>
+                        <div class="caption">
+                            <h6 class="regular"><a href="#">@p.Title</a></h6>
+                            <div class="price">
+
+                                <small class="amount text-primary">@p.Price</small>
+
+
+
+                            </div>
+
+                            <a href="/Home/Deleteproduct?proid=@p.ProductId">Delete</a>
+                            <a href="">Edit</a>
+
+
+                        </div><!-- end caption -->
+                    </div><!-- end thumbnail -->
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+

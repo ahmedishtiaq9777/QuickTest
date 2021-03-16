@@ -1,0 +1,101 @@
+@using QuickTest.Models.SellerViewModels;
+
+@model Tuple<Product,Basedashboard> 
+@{
+    ViewData["Title"] = "ConforDelete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">ConformDelete</h1>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="content">
+
+        <div class="container-fluid">
+
+
+            <section class="section white-backgorund">
+                <div class="container">
+                    <div class="row">
+                        <!-- start sidebar -->
+                        <div class="col-sm-4">
+                            <div class="carousel slide product-slider" data-ride="carousel" data-interval="false">
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <figure>
+                                            <img src="@Model.Item1.ProductImage" alt="">
+                                        </figure>
+                                    </div><!-- end item -->
+
+                                   
+                                    <!-- Arrows -->
+                                    <a class="left carousel-control" href=".html" data-slide="prev">
+                                        <span class="fa fa-angle-left"></span>
+                                    </a>
+                                    <a class="right carousel-control" href=".html" data-slide="next">
+                                        <span class="fa fa-angle-right"></span>
+                                    </a>
+                                </div><!-- end carousel-inner -->
+                                <!-- thumbs -->
+                                <ol class="carousel-indicators mCustomScrollbar meartlab">
+                                    <li data-target=".product-slider" data-slide-to="0" class="active"><img src="@Model.Item1.ProductImage" alt=""></li>
+                                   
+                                </ol><!-- end carousel-indicators -->
+                            </div><!-- end carousel -->
+                        </div><!-- end col -->
+                        <!-- end sidebar -->
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h2 class="title">@Model.Item1.Title</h2>
+                                    <p class="text-gray alt-font">@Model.Item1.Code</p>
+
+                                    <ul class="list list-inline">
+
+                                        <li><h5 class="text-primary">$@Model.Item1.Price</h5></li>
+
+
+                                    </ul>
+                                </div><!-- end col -->
+                            </div><!-- end row -->
+
+                            <hr class="spacer-5"><hr class="spacer-10 no-border">
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p>@Model.Item1.Description</p>
+
+                                    <hr />
+                                    <a href="/Seller/ConfirmDelete?proid=@Model.Item1.ProductId" class="btn btn-default">Conform Delete</a>
+
+
+                                </div><!-- end col -->
+                            </div><!-- end row -->
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+
+
+                </div><!-- end container -->
+            </section>
+
+
+
+
+
+
+
+
+
+
+        </div>
+</section>
+</div>

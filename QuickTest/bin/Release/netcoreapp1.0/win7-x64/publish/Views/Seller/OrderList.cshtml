@@ -1,0 +1,139 @@
+@using QuickTest.Models.SellerViewModels;
+@model Tuple<List<OrderViewModel>,Basedashboard>
+
+@{
+    ViewData["Title"] = "OrderList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Order List</h1>
+
+                </div><!-- /.col -->
+                @*<div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </div>*@<!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+
+    <section class="content">
+        <div class="container-fluid">
+            <table class="table table-responsive-sm display" id="order">
+                <thead>
+                    <tr>
+                        <th>
+                           OrderId
+                        </th>
+                        <th>
+                            UserId
+                        </th>
+                        <th>
+                          UserName
+                        </th>
+                        <th>
+                          Phone Number
+                        </th>
+                        <th>
+                           Address
+                        </th>
+                        <th>
+                           Total
+                        </th>
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Order Date
+                        </th>
+                        <th>Products</th>
+                        <th>Actions</th>
+
+
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Item1)
+                    {
+                        <tr>
+                            <td>
+                                #@Html.DisplayFor(modelItem => item.Orderid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.userid)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.user_name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.total)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.orderdate)
+                            </td>
+                            <td>@for (int i = 0; i < item.products.Count(); i++)
+                            {<a class="btn-primary" href="#"> @item.products[i].title</a>}</td>
+
+
+
+                            <td>
+                                @Html.ActionLink("Edit", "EditOrderInfo", new {  id=item.Orderid  })<br />
+                                @Html.ActionLink("OrderDetails", "OrderDetail", new { id = item.Orderid })
+                                @Html.ActionLink("Cancel Order", "CancelOrder", new {  id=item.Orderid  })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+@section scriptscdn{
+    @*<script src="~/css/ltdtheme/bstable.js"></script>
+        <script>
+        var example1 = new BSTable("order");
+            example1.init();
+        </script>*@
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script>
+
+
+
+        $(document).ready(function () {
+            $('#order').DataTable();
+        });
+
+    </script>
+}
+@section csscdn{
+    @*<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">*@
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+}

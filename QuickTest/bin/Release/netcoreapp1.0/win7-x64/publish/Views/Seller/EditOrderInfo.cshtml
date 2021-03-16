@@ -1,0 +1,106 @@
+﻿@using QuickTest.Models.SellerViewModels
+@model Tuple<OrderViewModel,Basedashboard>
+
+@{
+    ViewData["Title"] = "Edit Order Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">EditOrderInfo</h1>
+
+                </div><!-- /.col -->
+                @*<div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                    </div>*@<!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+
+    <section class="content">
+        <div class="container-fluid">
+           
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <form asp-action="EditOrderInfo" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Item1.Orderid" class="control-label"></label>
+                            <input asp-for="Item1.Orderid" name="Orderid" class="form-control" readonly />
+                            <span asp-validation-for="Item1.Orderid" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Item1.userid" class="control-label"></label>
+                            <input asp-for="Item1.userid" name="userid" class="form-control" readonly />
+                            <span asp-validation-for="Item1.userid" class="text-danger"></span>
+                        </div>
+                        @*<div class="form-group">
+                            <label asp-for="Item1.user_name" class="control-label"></label>
+                            <input asp-for="Item1.user_name" class="form-control" />
+                            <span asp-validation-for="Item1.user_name" class="text-danger"></span>
+                        </div>*@
+                        @*<div class="form-group">
+                            <label asp-for="phone" class="control-label"></label>
+                            <input asp-for="phone" class="form-control" readonly />
+                            <span asp-validation-for="phone" class="text-danger"></span>
+                        </div>*@
+                        @*<div class="form-group">
+                            <label asp-for="Item1.address" class="control-label"></label>
+                            <input asp-for="Item1.address" class="form-control" />
+                            <span asp-validation-for="Item1.address" class="text-danger"></span>
+                        </div>*@
+                        @*<div class="form-group">
+                            <label asp-for="Item1.total" class="control-label"></label>
+                            <input asp-for="Item1.total" class="form-control" />
+                            <span asp-validation-for="Item1.total" class="text-danger"></span>
+                        </div>*@
+                        <div class="form-group">
+                            <label asp-for="Item1.status" class="control-label"></label>
+                            <select asp-for="Item1.status"  name="status" class="form-control" >
+                                
+
+                                <option value="NotReady">Not Ready</option>
+                                <option value="Ready">Ready</option>
+                                
+
+                                    </select>
+                            <span asp-validation-for="Item1.status" class="text-danger"></span>
+                        </div>
+                        @*<div class="form-group">
+                            <label asp-for="orderdate" class="control-label"></label>
+                            <input asp-for="orderdate" class="form-control" />
+                            <span asp-validation-for="orderdate" class="text-danger"></span>
+                        </div>*@
+                        @*<div class="form-group">
+                            <label asp-for="image" class="control-label"></label>
+                            <input asp-for="image" class="form-control" />
+                            <span asp-validation-for="image" class="text-danger"></span>
+                        </div>*@
+                        @*<div class="form-group">
+                            <label asp-for="pid" class="control-label"></label>
+                            <input asp-for="pid" class="form-control" />
+                            <span asp-validation-for="pid" class="text-danger"></span>
+                        </div>*@
+                        <div class="form-group">
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
+            </div>
+</section>
+</div>

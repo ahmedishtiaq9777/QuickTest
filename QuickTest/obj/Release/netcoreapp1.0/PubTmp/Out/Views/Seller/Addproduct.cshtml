@@ -25,7 +25,7 @@
         <div class="container-fluid">
 
 
-            <form asp-action="Addproduct" method="post" enctype="multipart/form-data">
+            <form id="formadd"asp-action="Addproduct" method="post" name="productform"   enctype="multipart/form-data">
                 <div class="form-horizontal">
 
                     <hr />
@@ -35,21 +35,21 @@
                     <div class="form-group">
                         <label asp-for="Item1.Title" class="col-md-2 control-label"></label>
                         <div class="col-lg-5">
-                            <input asp-for="Item1.Title" name="Title" type="text" required class="form-control" />
+                            <input asp-for="Item1.Title" name="Title" type="text"   id="Title" maxlength="50" title="Maximum 50" required class="form-control" />
                             <span asp-validation-for="Item1.Title" class="text-danger" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label asp-for="Item1.Code" class="col-md-2 control-label"></label>
                         <div class="col-lg-5">
-                            <input asp-for="Item1.Code"name="Code"required class="form-control" />
+                            <input asp-for="Item1.Code"name="Code" pattern="^[A-Za-z0-9_:]{5,8}$" title="Minimum Length 5 Maximum 8 ...Can Include character,numbers , '_' and':' " required class="form-control" />
                             <span asp-validation-for="Item1.Code" class="text-danger" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label asp-for="Item1.Description" class="col-md-2 control-label"></label>
                         <div class="col-lg-offset-2 col-lg-12">
-                            <textarea asp-for="Item1.Description" name="Description" required class="col-8 col-lg-5" rows="3" placeholder="Comment"></textarea>
+                            <textarea asp-for="Item1.Description" name="Description" maxlength="170"   required class="col-8 col-lg-5" rows="3"  placeholder="Comment"></textarea>
 
                             <span asp-validation-for="Item1.Description" class="text-danger" />
                         </div>
@@ -57,7 +57,7 @@
                     <div class="form-group">
                         <label asp-for="Item1.Price" class="col-md-2 control-label"></label>
                         <div class="col-md-3">
-                            <input asp-for="Item1.Price" class="form-control" required name="Price" />
+                            <input asp-for="Item1.Price" class="form-control" pattern="^[0-9]{1,5}$" title="Only Digits....Maximum 5 Digits" required name="Price" />
                             <span asp-validation-for="Item1.Price" class="text-danger" />
                         </div>
                     </div>
@@ -145,17 +145,17 @@
                                     <option value="GirlKids(6-12)Shoes">SHOES & Accesaries</option>
 
                                 </optgroup>
-                                <optgroup label="Accesarries" class="col-xs-12">
+                                @*<optgroup label="Accesarries" class="col-xs-12">
                                     <option value="AccesariesMen">MEN</option>
                                     <option value="AccesariesWomen">WOMEN</option>
 
-                                </optgroup>
-                                <optgroup label="Shops" class="col-xs-12">
+                                </optgroup>*@
+                                @*<optgroup label="Shops" class="col-xs-12">
                                     <option value="New">New</option>
                                     <option value="Trending">Trending</option>
                                     <option value="Recommend">Recommend</option>
 
-                                </optgroup>
+                                </optgroup>*@
 
 
 
@@ -192,7 +192,7 @@
                         </div>*@
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Add product" class="btn btn-default" />
+                            <input type="submit" value="Add product" id="addprod" class="btn btn-default" />
                         </div>
                     </div>
                     <button><a asp-action="Productlist">Back to List</a></button>
@@ -203,11 +203,12 @@
         </div>
 
     </section>
-
+    fe
 </div>
 @section scripts{
 <script>
-    var addpro = $(".wrapper").find("#addpro2");
+    $(document).ready(function () {
+   /* var addpro = $(".wrapper").find("#addpro2");
     var sidebar = $(".wrapper").find(".sidebar");
 
     var alreadyselected = sidebar.find(".active");
@@ -215,7 +216,46 @@
     //alert(ht);
     alreadyselected.removeClass("active");
     addpro.addClass("active");
+    */
     //alert("ahmed2");
+   
+   
+       // alert("ahemd");
+        const addprobtn = document.querySelector('#addprod');
+       // alert(addprobtn);
+        addprobtn.addEventListener('click', function (e) {
+
+           // alert("addproclick");
+            $("#formadd").submit(function (n) {
+                n.preventDefault();
+                var title = $("#Title").val();
+               // alert(title);
+              var trimedtitle = $.trim(title);
+             //   alert(trimedtitle);
+                if (trimedtitle != "") {
+                    document.getElementById("formadd").submit();
+                }
+                else if (trimedtitle == "") {
+                    alert("Please Correctly Fill Title");
+                }
+            });
+
+          
+
+
+            //   // var t = $("#Title").val;
+            //   // alert(t);
+
+          
+
+
+        });
+
+
+
+    });
+
 
 </script>
+   
 }

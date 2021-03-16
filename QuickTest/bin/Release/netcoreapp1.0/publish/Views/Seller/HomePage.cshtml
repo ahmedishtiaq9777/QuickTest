@@ -1,0 +1,366 @@
+﻿@model QuickTest.Models.Usertable
+@{
+    Layout = "~/Views/shared/HomeLayout2.cshtml";
+}
+
+
+
+
+
+@section css{
+    <style>
+        #headlogin {
+            margin-left: 120px;
+        }
+
+        #jomboteam {
+            padding-left: 0px;
+            
+
+        }
+        #ourteam {
+            background-color: lightgrey;
+        }
+
+        .container {
+            
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .2);
+            margin-bottom: 50px;
+            width: 90%;
+            margin-left: 100px;
+            background-color: lightgray;
+        }
+
+        #n4 {
+            margin-left: 460px;
+        }
+
+        .title {
+            font-size: 25px;
+            font-weight: 100;
+        }
+
+        .icon {
+            position: relative;
+            bottom: 11px;
+        }
+
+        .mt-100 {
+            margin-top: 100px;
+        }
+
+        .header {
+            padding-top: 40px;
+        }
+
+        .card-body {
+            position: relative;
+            bottom: 35px;
+        }
+
+        .btn {
+            margin-top: 36px;
+            margin-bottom: 45px;
+            background-color: #AB47BC;
+            border: none;
+            color: #fff;
+        }
+
+            .btn:hover {
+                -webkit-transform: scale(1.05);
+                -ms-transform: scale(1.05);
+                transform: scale(1.05);
+                color: #fff
+            }
+
+        .profile img {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+        }
+
+        .card {
+            border-radius: 15px;
+            margin-left: 30px;
+            margin-right: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+        }
+
+        @@media only screen and (max-width: 768px) {
+            /* For mobile phones: */
+           
+            #firstcard{
+                margin-top:0px;
+            }
+            .card {
+                border-radius: 15px;
+                margin-bottom: 20px;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+            }
+            #headlogin {
+                margin-left: 60px;
+            }
+
+            #login2 {
+                margin-left: 0px;
+            }
+
+
+            #n4 {
+                margin-left: 30px;
+            }
+
+            #jomboteam {
+                padding-left: 0px;
+            }
+
+            .container {
+                background-color: lightgray;
+                text-align: center;
+                border-radius: 20px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, .2);
+                margin-bottom: 50px;
+                width: 100%;
+                margin-left: 0px;
+                margin-top: 0px;
+            }
+            #ourteam {
+            background-color:lightgray;    
+            }
+
+            #carddiv{
+                margin-top:0px;
+                padding-top:0px;
+                  
+            }
+            #newshop {
+                font-size: 30px;
+            }
+
+            .Banner_sec .leftside {
+                width: 90%;
+                float: left;
+                margin-left: 10px;
+            }
+
+                .Banner_sec .leftside .shopdiv {
+                    font-size: 20px;
+                    color: #fff;
+                    font-family: 'Open Sans', sans-serif;
+                    font-weight: 200;
+                    text-transform: uppercase;
+                    margin-left: 30px;
+                    line-height: 30px;
+                }
+
+            .Banner_sec a {
+                padding: 11px 16px;
+                font-size: 10px;
+                color: #fff;
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 200;
+                text-transform: uppercase;
+                text-decoration: none;
+                display: inline-block;
+                border: solid 1px #b0bdc8;
+                background: rgba(64, 93, 118, 0.8);
+                transition: all 0.3s ease;
+            }
+
+
+
+            .Banner_sec .leftside h3 {
+                margin-top: 100px;
+                font-size: 20px;
+                padding-left: 20px;
+                line-height: 30px;
+                font-weight: 200;
+            }
+            /*.Banner_sec .leftside {
+                padding: 93px 0px 0px 0px;
+                width: 40.90%;
+
+                float: left;
+
+
+            }*/
+        }
+    </style>
+}
+
+
+
+
+<!-- // End Header // -->
+<!-- \\ Begin Banner Section \\ -->
+<div class="Banner_sec" id="home">
+    <!--  \\ Begin banner Side -->
+    <div class="bannerside">
+        <div class="center">
+            <!--  \\ Begin Left Side -->
+            <div class="leftside">
+
+                <h3>Start Selling On QUICKMART</h3>
+
+                @*<p>November is a professional website template that is responsive and mobile friendly for any device. This template is provided by templatemo.com</p>*@
+                <br />
+                <br />
+                <br />
+                <div class="shopdiv">
+                    &nbsp &nbsp &nbsp&nbsp   <a asp-action="signup" id="newshop">New Shop</a>
+                </div>
+            </div>
+            <!--  // End Left Side // -->
+
+        </div>
+    </div>
+    <!--  // End banner Side // -->
+    <div class="clear"></div>
+</div>
+<!-- // End Banner Section // -->
+<div class="bgcolor"></div>
+<!-- \\ Begin Container \\ -->
+<div id="Container">
+
+
+
+
+    
+    <div class='container mx-auto mt-5 col-md-10  mt-100' id="ourteam">
+        <div class="jumbotron align" style="width:90%;background-color:lightgray;">
+            <h1 style="align-content:center;" id="jomboteam">OUR TEAM</h1>
+        </div>
+
+        <div class="row" style="justify-content: center" id="carddiv">
+            <div class="card col-md-3 mt-100" style="background-color:antiquewhite;" id="firstcard">
+                <div class="card-content">
+                    <div class="card-body p-0">
+                        <div class="profile"><img src="~/img/Our Team/ahmed.jpg"></div>
+                        <div class="card-title"> Ahmed Ishtiaq<br /> <small>App Maintainance Head</small> </div>
+                        <div class="card-subtitle">
+                            <p> <small class="text-muted"> Have Done Bachelor Software Engineering at uogsialkot campus </small> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card col-md-3 col-lg-3"style="background-color:antiquewhite;" >
+                <div class="card-content">
+                    <div class="card-body p-0">
+                        <div class="profile"> <img src="~/img/Our Team/rsz_abrar3.jpg"> </div>
+                        <div class="card-title"> Abrar Hussain<br /> <small>Head of Management at Quick</small> </div>
+                        <div class="card-subtitle">
+                            <p> <small class="text-muted"> Have Done Bachelor Software Engineering at uogsialkot campus </small> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card col-md-3 mt-100"style="background-color:antiquewhite;">
+                <div class="card-content">
+                    <div class="card-body p-0">
+                        <div class="profile"> <img src="~/img/Our Team/awais.jpg"> </div>
+                        <div class="card-title">Muhammad Awais<br /> <small>Finance Manager</small> </div>
+                        <div class="card-subtitle">
+                            <p> <small class="text-muted"> Have Done Bachelor Software Engineering at uogsialkot campus </small> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card col-md-3 col-lg-3" style="background-color:antiquewhite;" id="n4">
+                <div class="card-content">
+                    <div class="card-body p-0">
+                        <div class="profile"> <img src="~/img/Our Team/umair2.jpg"> </div>
+                        <div class="card-title">Umair Sajjad<br /> <small>Head of marketing at QUICKMART</small> </div>
+                        <div class="card-subtitle">
+                            <p> <small class="text-muted"> Have Done Bachelor Software Engineering at uogsialkot campus </small> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+ 
+
+
+
+
+
+
+
+
+
+    <!-- // End Contact Section // -->
+    <!-- // End Container // -->
+</div>
+
+
+
+
+
+@section script{
+    <script>
+
+    $(document).ready(function () {
+       // alert("ahmed1");
+        @*$("li").removeClass("active");
+        $("a.register").parent("li").addClass("active");
+       // var s = '@ViewBag.error';*@
+      //  alert(s);
+        //if (s == "7") {
+        //    alert("Please Enter Valid Phone Number");
+        //}
+       // alert("ahmad2");
+
+
+        var Homepage = $(".LayoutFrame").find("#Homepage");
+        Homepage.addClass("active");
+
+
+        $("#form1").submit(function (e) {
+            e.preventDefault();
+            var n = $("input#text1").val();
+            alert(n);
+
+
+
+            $.ajax({
+                type: "post",
+                url: "/Seller/Signup2/",
+
+                data: { number: n },
+                success: function (data) {
+                    alert(data);
+
+                    // if (data == "ok")
+                    //$("#error").html(data.result);
+                    //$("#update").html("Result: " + data.result);
+
+                }
+
+            });
+
+
+
+        });
+
+
+          //  alert("ahmed3");
+
+
+
+
+
+
+
+
+    });
+    </script>
+}
+
+
+
+
+

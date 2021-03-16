@@ -10,3 +10,8 @@ D:\Visual studio 2017\QuickTest\QuickTest\obj\Debug\netcoreapp1.0\QuickTest.Asse
 D:\Visual studio 2017\QuickTest\QuickTest\obj\Debug\netcoreapp1.0\QuickTest.dll
 D:\Visual studio 2017\QuickTest\QuickTest\obj\Debug\netcoreapp1.0\QuickTest.pdb
 D:\Visual studio 2017\QuickTest\QuickTest\obj\Debug\netcoreapp1.0\UserSecretsAssemblyInfo.cs
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Debug\netcoreapp1.0\appsettings.Development.json
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Debug\netcoreapp1.0\appsettings.json
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Debug\netcoreapp1.0\bower.json
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Debug\netcoreapp1.0\bundleconfig.json
+D:\Visual studio 2017\QuickTest\QuickTest\obj\Debug\netcoreapp1.0\QuickTest.genruntimeconfig.cache

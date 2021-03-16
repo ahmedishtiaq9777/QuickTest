@@ -20,7 +20,9 @@ namespace QuickTest.Models.ModelsForAndroid
         public int specificationId { get; set; }
         public string color { get; set; }
         public string size { get; set; }
-      
-        
+        public string modeldata { get; set; }
+
+
+
     }
 }

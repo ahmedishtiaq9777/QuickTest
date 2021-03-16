@@ -54,7 +54,7 @@
             <div class="field-group">
                  <span class="fa fa-phone" aria-hidden="true"></span>
                 <div class="wthree-field">
-                    <input asp-for="PhoneNo"  id="phone" type="text"  placeholder="0333*******" required>
+                    <input asp-for="PhoneNo"  id="phone" type="text" pattern="^[0]{1}[0-9]{10}$" title="Must be this formet  03335432353  "  placeholder="0333*******" required>
                     @*<span asp-validation-for="Email" class="text-danger" />*@
                 </div>
 

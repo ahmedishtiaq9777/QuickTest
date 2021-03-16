@@ -1,0 +1,684 @@
+@model QuickTest.Models.Usertable
+@{
+    ViewData["Title"] = "Registeration";
+    Layout = "~/Views/Shared/HomeLayout2.cshtml";
+}
+@section css{
+    @*<link href="~/css/style.css" rel="stylesheet" />*@
+    <link href="~/css/Registeration.css" rel="stylesheet" />
+
+
+    <style>
+       .stepper{
+           margin-top:120px;
+
+       }
+        #btn-1{
+
+            margin-left:340px;
+            
+
+        }
+        form {
+            margin-top: 80px;
+        }
+
+
+        @@media only screen and (max-width: 768px) {
+            .stepper {
+                margin-top: 60px;
+            }
+            body {
+                background: url(../img/Get-bg.jpg) top center no-repeat;
+            }
+            form {
+                margin-top: 150px;
+            }
+            #lblpassword{
+
+                font-size:12px;
+            }
+            #password{
+                font-size:12px;
+            }
+            #cfmpass{
+                font-size:12px;
+            }
+            #lblcomformpassword {
+                font-size: 12px;
+            }
+            #email {
+                font-size: 12px;
+            }
+            #lblemail{
+                font-size:12px;
+            }
+            #errorrow{
+
+                line-height:10px;
+
+            }
+            #matcherror{
+                margin-left:90px;
+               font-size:10px;
+               
+               
+               
+               }
+            #btn-1 {
+                margin-left: 100px;
+            }
+
+
+            @*second form*@ 
+            #nameshop
+            {font-size:12px;}
+
+
+
+        }
+
+
+
+    </style>
+
+
+
+
+
+}
+
+
+    <div class="Contact_sec" id="login">
+
+
+
+
+
+        <!-- \\ Begin Get Section \\ -->
+        <div class="Get_sec" style="width:100%;height:100%; height: 100vh;">
+
+
+            <main>
+                <div class="stepper row">
+                    <div class="step--1 step-active col-lg-3">Step 1</div>
+                    <div class="step--2 col-lg-3">Step 2</div>
+                    <div class="step--3 col-lg-3">Step 3</div>
+                    <div class="step--4 col-lg-3">Finish</div>
+                </div>
+                <form class="form  col-12 col-lg-6" id="form1"  style="background-color:antiquewhite;">
+                    <div class="form--header-containe  col-12 col-lg-12 jumbotron jumbotron-fluid" style="background-color:white;">
+                        <i class="fas fa-key pull-left fa-3x"></i>
+                        <h1 class="form--header-title col-lg-12 text-center">
+                            
+                            Security
+                        </h1>
+
+                        @*<p class="form--header-text">
+                            Tell us more about you.
+                        </p>*@
+                    </div>
+                    <div class="table-responsive" style="overflow-x:hidden;">
+
+                        <div class="row">
+                            <div class="col-3 col-lg-3"> <label id="lblpassword"> Password:</label></div>
+                            <div class="col-8 col-lg-9">   <input type="password" id="password" placeholder="Password" class="col-12 col-lg-9" title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" name="Password" required /> @*<i class="fas fa-anchor"></i>*@ </div>
+
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-3 col-lg-3"><label id="lblcomformpassword"> Conform Password:</label></div>
+
+                            <div class="col-8 col-lg-9"> <input type="password" id="cfmpass" class="col-12 col-lg-9" name="conformpass" placeholder="Conform Password" required /></div>
+                        </div>
+
+                        <div class="row" id="errorrow">
+                            <div class="col-12 col-md-6 col-lg-11" ><span id="matcherror" class="pull-right col-12" style="color:red; visibility:hidden; background-color:aqua;">Password Not Match</span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3 col-lg-3"><br /><label id="lblemail">Email(Optional):</label></div>
+                            <div class="col-8 col-lg-9"><input class="col-12 col-lg-9" type="text" id="email" placeholder="Email" /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6"><button class="form__btn btn-block pull-right" id="btn-1">Next</button></div>
+                        </div>
+
+                    </div>
+
+                </form>
+                <form id="form2" class="form form-active col-lg-6">
+                    <div class="form--header-containe   col-lg-12 jumbotron jumbotron-fluid">
+                        <h1 class="form--header-title col-lg-12 text-center">
+                            Shop Details
+                        </h1>
+
+                        @*<p class="form--header-text">
+                            Tell us more about your company.
+                        </p>*@
+                    </div>
+                    <div style="visibility:hidden; color:red;" id="chk_option_error"> Please select at least one Category.</div>
+                    <div class="table-responsive" style="overflow-x:hidden;">
+
+                        <div class="row">
+
+                            <div class="col-3 col-lg-3 pull-left"><label id="lblpassword" cla style="margin-top:5px;">ShopName:</label></div>
+                            <div class="col-8 col-lg-9"> <input type="text" class=" col-12 col-lg-9" style="margin-top:0px;" name="shopname" id="nameshop" placeholder="Shop Name (20 character)" title="Only Use Characters and Numbers" pattern="[a-zA-Z0-9]+" maxlength="20" required /></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3 col-md-6 col-lg-11"><span id="shopnameerror" class="pull-right" style="color:red;visibility:hidden;">Already Occupied</span></div>
+                        </div>
+                        <br />
+
+                        <div class="row">
+                            <div class="col-xs-6 col-lg-3"><label id="lblpassword" class="col-xs-8 col-lg-12" style="margin-top:15px;">Categories Include:</label></div>
+                            <div class="col-lg-9">
+
+                                <div class="" style=""> <input type="checkbox" name="category[]" value="MenClothing" class="" style="margin-left:40px;" />&nbsp;&nbsp;&nbsp;<label class="pull-right">MenClothing</label></div>
+
+                                <div class=""><input type="checkbox" name="category[]" value="WomenClothing" class="" style="margin-left:66px;">&nbsp;&nbsp;&nbsp;<label class="pull-right">WomenClothing</label>   </div>
+                                <div class=""><input type="checkbox" name="category[]" value="WomenClothing" class="" style="margin-left:40px;">&nbsp;&nbsp;&nbsp;<label class="pull-right">KidsClothing</label> </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-5"><button class="form__btn" id="btn-2-prev">Previous</button></div>
+                            <div class="col-lg-7"><button class="form__btn" id="btn-2-next">Next</button></div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+                </form>
+                <form class="form   col-xs-3 col-lg-6" style="margin-top:90px;" id="form3">
+                    <div class="form--header-containe   col-lg-12 jumbotron jumbotron-fluid" >
+                        <h1 class="form--header-title col-lg-12 text-center">
+                            Shop Address
+                        </h1>
+
+                        @*<p class="form--header-text">
+                            Tell us more about your social account.
+                        </p>*@
+                    </div>
+                    <div class="table-responsive" style="overflow-x:hidden;">
+                        <div class="row">
+                            <div class="col-lg-3 pull-left"><label style="margin-top:5px;">Address:</label></div>
+                            <div class="col-lg-9"><input class="col-lg-9" id="location" type="text" placeholder="Address" required /></div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-3 pull-left"><label style="margin-top:5px;">State:</label></div>
+                            <div class="col-lg-9"> <input class="col-lg-9" type="text" id="administrative_area_level_1" required placeholder="state" /></div>
+                        </div>
+                        <br />
+                        <div class=" row">
+                            <div class="col-lg-3 pull-left"><label style="margin-top:5px;">City:</label></div>
+                            <div class="col-lg-9"> <input class="col-lg-9" type="text" id="locality" required placeholder="city" /></div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-3 pull-left"><label style="margin-top:5px;">Area:</label></div>
+                            <div class="col-lg-9"><input type="text" placeholder="area" id="sublocality_level_1" required /></div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-3 pull-left"><label style="margin-top:5px;">Street Area Name:</label></div>
+                            <div class="col-lg-9"><input type="text" placeholder="area" id="route" required /></div>
+                        </div>
+                        <br />
+                        <div class="row">
+
+                            <div class="col-lg-5">
+                                <button class="form__btn" id="btn-3-prev">Previous</button>
+                            </div>
+                            <div class="col-lg-7">
+                                <button class="form__btn" id="btn-3">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </form>
+                <div class="form--message"></div>
+            </main>
+
+
+            </div>
+        </div>
+            @*<script src="https://code.jquery.com/jquery-3.5.0.min.js"
+                    integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+                    crossorigin="anonymous"></script>
+            <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+            <script src="~/js/jquery.serializejson.js"></script>
+            <script src="~/js/jquery.cookie.js"></script>
+
+            <script>
+                const formBtn1 = document.querySelector('#btn-1');
+                const formBtnPrev2 = document.querySelector('#btn-2-prev');
+                const formBtnNext2 = document.querySelector('#btn-2-next');
+                const formBtn3 = document.querySelector('#btn-3');
+
+                console.log("lmain");
+                console.log(formBtn1);
+                console.log(formBtnNext2);
+                console.log(formBtnPrev2);
+                console.log(formBtn3);
+                formBtn1.addEventListener('click', function (e) {
+
+
+                    //$("#form1").validate({
+                    //    rules: {
+                    //        field: {
+                    //            required: true,
+                    //            step: 10
+                    //        }
+                    //    }
+                    //});
+
+                    $("#form1").submit(function (e) {
+                        e.preventDefault();
+                        var obj = $("#form1").serializeJSON();
+                        var JsonString = JSON.stringify(obj);
+                        $.cookie("form1data", JsonString, { path: "/" });
+                        var data = $.cookie("form1data");
+                        var jsobject = JSON.parse(data);
+                        console.log(jsobject.Password);
+
+                        document.getElementById("chk_option_error").style.visibility = "hidden";// for next form error
+                        gotoNextForm(formBtn1, formBtnNext2, 1, 2);
+                        // e.preventDefault();
+                    });
+
+                });
+
+                // Next button listener of form 2
+                formBtnNext2.addEventListener('click', function (f) {
+                    // gotoNextForm(formBtnNext2, formBtn3, 2, 3);
+                    //f.preventDefault();
+
+                    $("#form2").submit(function (n) {
+                        n.preventDefault();
+                        var form_data = new FormData(document.querySelector("#form2"));
+                        if (form_data.has("category[]")) {
+                            document.getElementById("chk_option_error").style.visibility = "hidden";
+                            //event.stopPropagation();
+                            console.log("submitted 2");
+
+                            var obj2 = $("#form2").serializeJSON();
+                            var JsonString = JSON.stringify(obj2);
+
+                            $.cookie("form2data", JsonString, { path: "/" });
+                            gotoNextForm(formBtnNext2, formBtn3, 2, 3);
+                        } else {
+                            document.getElementById("chk_option_error").style.visibility = "visible";
+                        }
+
+                    });
+
+
+                });
+
+
+                // Previous button listener of form 2
+                formBtnPrev2.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    gotoNextForm(formBtnNext2, formBtn1, 2, 1);
+
+                });
+
+                // Button listener of form 3
+                formBtn3.addEventListener('click', function (e) {
+                    $("#form3").submit(function (n) {
+
+                        n.preventDefault();
+
+                        document.querySelector(`.step--3`).classList.remove('step-active');
+                        document.querySelector(`.step--4`).classList.add('step-active');
+                        formBtn3.parentElement.style.display = 'none';
+                        document.querySelector('.form--message').innerHTML = `
+                       <h1 class="form--message-text">Your account is successfully created </h1>
+                       `;
+
+                    });
+                });
+                const gotoNextForm = (prev, next, stepPrev, stepNext) => {
+                    // Get form through the button
+                    const prevForm = prev.parentElement.parentElement.parentElement.parentElement.parentElement;
+                    const nextForm = next.parentElement.parentElement.parentElement.parentElement.parentElement;
+                    const nextStep = document.querySelector(`.step--${stepNext}`);
+                    const prevStep = document.querySelector(`.step--${stepPrev}`);
+                    console.log("gotomethod");
+                    console.log(prevForm);
+                    console.log(nextForm);
+                    console.log(nextStep);
+                    console.log(prevStep);
+                    // Add active/inactive classes to both previous and next form
+                    nextForm.classList.add('form-active');
+                    nextForm.classList.add('form-active-animate');
+                    prevForm.classList.add('form-inactive');
+                    // Change the active step element
+                    prevStep.classList.remove('step-active');
+                    nextStep.classList.add('step-active');
+                    // Remove active/inactive classes to both previous an next form
+                    setTimeout(() => {
+                        prevForm.classList.remove('form-active');
+                        prevForm.classList.remove('form-inactive');
+                        nextForm.classList.remove('form-active-animate');
+                    }, 1000);
+                };
+
+
+            </script>*@
+            @*</body>*@
+            @*</html>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            @section mapscript{
+
+
+
+                <script src="https://code.jquery.com/jquery-3.5.0.min.js"
+                        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+                        crossorigin="anonymous"></script>
+                <script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+                <script src="~/js/jquery.serializejson.js"></script>
+                <script src="~/js/jquery.cookie.js"></script>
+
+                <script>
+
+
+                    function Validate() {
+                        var password = document.getElementById("password").value;
+                        var confirmPassword = document.getElementById("cfmpass").value;
+                        console.log(password);
+                        console.log(confirmPassword);
+                        if (password != confirmPassword) {
+
+                            document.getElementById("matcherror").style.visibility = "visible";
+
+                            //alert("Passwords do not match.");
+                            //return false;
+                        } else {
+                            document.getElementById("matcherror").style.visibility = "hidden";
+                        }
+
+                        //return true;
+                    }
+
+                    $(document).ready(function () {
+                        $("#cfmpass").keyup(Validate);
+                        $("#password").keyup(Validate);
+
+                        var errordiv = document.getElementById("matcherror");
+
+                        const formBtn1 = document.querySelector('#btn-1');
+                        const formBtnPrev2 = document.querySelector('#btn-2-prev');
+                        const formBtnNext2 = document.querySelector('#btn-2-next');
+                        const formBtn3 = document.querySelector('#btn-3');
+                        const formbtnprev3 = document.querySelector("#btn-3-prev")
+
+                        console.log("lmain");
+                        console.log(formBtn1);
+                        console.log(formBtnNext2);
+                        console.log(formBtnPrev2);
+                        console.log(formBtn3);
+                        formBtn1.addEventListener('click', function (e) {
+
+
+                            //$("#form1").validate({
+                            //    rules: {
+                            //        field: {
+                            //            required: true,
+                            //            step: 10
+                            //        }
+                            //    }
+                            //});
+
+                            $("#form1").submit(function (e) {
+                                e.preventDefault();
+                                if (errordiv.style.visibility == "hidden") {
+
+                                    var obj = $("#form1").serializeJSON();
+                                    var JsonString = JSON.stringify(obj);
+                                    $.cookie("form1data", JsonString, { path: "/" });
+                                    var data = $.cookie("form1data");
+                                    var jsobject = JSON.parse(data);
+                                    console.log(jsobject.Password);
+
+                                    document.getElementById("chk_option_error").style.visibility = "hidden";// for next form error
+                                   
+                                    gotoNextForm(formBtn1, formBtnNext2, 1, 2);
+                                }
+                                // e.preventDefault();
+                            });
+
+                        });
+
+                        // Next button listener of form 2
+                        formBtnNext2.addEventListener('click', function (f) {
+                            // gotoNextForm(formBtnNext2, formBtn3, 2, 3);
+                            //f.preventDefault();
+
+                            $("#form2").submit(function (n) {
+                                n.preventDefault();
+
+                                var form_data = new FormData(document.querySelector("#form2"));// select form and its data
+                                var error = document.getElementById("shopnameerror");
+
+                                if (form_data.has("category[]") && error.style.visibility == "hidden") {
+                                    document.getElementById("chk_option_error").style.visibility = "hidden";
+                                    //event.stopPropagation();
+                                    console.log("submitted 2");
+
+                                    var obj2 = $("#form2").serializeJSON();
+                                    var JsonString = JSON.stringify(obj2);
+
+                                    $.cookie("form2data", JsonString, { path: "/" });
+                                    gotoNextForm(formBtnNext2, formBtn3, 2, 3);
+                                } else if (!form_data.has("category[]")) {
+                                    document.getElementById("chk_option_error").style.visibility = "visible";
+                                }
+
+                            });
+
+
+                        });
+
+
+                        // Previous button listener of form 2
+                        formBtnPrev2.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            gotoNextForm(formBtnNext2, formBtn1, 2, 1);
+
+                        });
+                        formbtnprev3.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            gotoNextForm(formBtn3, formBtnNext2, 3, 2);
+
+                        });
+
+                        // Button listener of form 3
+                        formBtn3.addEventListener('click', function (e) {
+                            $("#form3").submit(function (n) {
+
+                                n.preventDefault();
+
+                                document.querySelector(`.step--3`).classList.remove('step-active');
+                                document.querySelector(`.step--4`).classList.add('step-active');
+                                formBtn3.parentElement.style.display = 'none';
+                                document.querySelector('.form--message').innerHTML = `
+                                                       <h1 class="form--message-text">Your account is successfully created </h1>
+                                                       `;
+
+                            });
+                        });
+                        const gotoNextForm = (prev, next, stepPrev, stepNext) => {
+                            // Get form through the button
+                            const prevForm = prev.parentElement.parentElement.parentElement.parentElement;
+                            const nextForm = next.parentElement.parentElement.parentElement.parentElement;
+                            const nextStep = document.querySelector(`.step--${stepNext}`);
+                            const prevStep = document.querySelector(`.step--${stepPrev}`);
+                            console.log("gotomethod");
+                            console.log(prevForm);
+                            console.log(nextForm);
+                            console.log(nextStep);
+                            console.log(prevStep);
+                            // Add active/inactive classes to both previous and next form
+                            nextForm.classList.add('form-active');
+                            nextForm.classList.add('form-active-animate');
+                            prevForm.classList.add('form-inactive');
+                            // Change the active step element
+                            prevStep.classList.remove('step-active');
+                            nextStep.classList.add('step-active');
+                            // Remove active/inactive classes to both previous an next form
+                            setTimeout(() => {
+                                prevForm.classList.remove('form-active');
+                                prevForm.classList.remove('form-inactive');
+                                nextForm.classList.remove('form-active-animate');
+                            }, 1000);
+                        };
+                        $("input#nameshop").blur(function () {
+                            var valuee = $("input#nameshop").val();
+                            console.log(valuee);
+                            if (jQuery.trim(valuee).length > 0) {
+                                $.ajax({
+
+                                    type: "post",
+                                    url: "/Seller/validateshopname/",
+
+                                    data: { shopname: valuee },
+                                    success: function (data) {
+                                        //alert(data);
+                                        if (data == "1") {
+                                            // alert("1");
+                                            document.getElementById("shopnameerror").style.visibility = "visible";
+
+                                        } else if (data == "0") {
+                                            //  alert("0");
+                                            document.getElementById("shopnameerror").style.visibility = "hidden";
+                                        }
+
+                                        // if (data == "ok")
+                                        //$("#error").html(data.result);
+                                        //$("#update").html("Result: " + data.result);
+
+                                    }
+
+
+
+
+                                });
+
+
+                            }
+
+                        });
+
+                    });
+
+                </script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDz3cPe7AisTtUnRxEy1JdznCn70BhEMXM&libraries=places&callback=initialize"
+                        async defer></script>
+
+                <script>
+                    var componentForm = {
+                        street_number: 'short_name',
+                        route: 'long_name',
+                        locality: 'long_name',
+                        administrative_area_level_1: 'short_name',
+                        country: 'long_name',
+                        postal_code: 'short_name',
+                        sublocality_level_1: 'long_name'
+                    };
+                    function initialize() {
+
+                        var options = {
+
+                            componentRestrictions: { country: "pk" }
+                        };
+
+                        var input = document.getElementById('location');
+
+
+                        var autocomplete = new google.maps.places.Autocomplete(input, options);
+                        // autocomplete.setFields(['address_component']);
+                        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                            var place = autocomplete.getPlace();
+                            console.log(place);
+                            console.log("latitude");
+                            console.log(place.geometry.location.lat());
+                            console.log("longitude");
+                            console.log(place.geometry.location.lng());
+
+
+                            //for (var component in componentForm) {
+                            //    document.getElementById(component).value = '';
+                            //    document.getElementById(component).disabled = false;
+                            //}
+
+                            // Get each component of the address from the place details,
+                            // and then fill-in the corresponding field on the form.
+                            for (var i = 0; i < place.address_components.length; i++) {
+                                var addressType = place.address_components[i].types[0];
+                                if (componentForm[addressType]) {
+                                    var val = place.address_components[i][componentForm[addressType]];
+                                    document.getElementById(addressType).value = val;
+                                }
+                            }
+
+
+
+
+
+                            // document.getElementById('city2').value = place.name;
+                            //   document.getElementById('cityLat').value = place.geometry.location.lat();
+                            // document.getElementById('cityLng').value = place.geometry.location.lng();
+                            //alert("This function is working!");
+                            //alert(place.name);
+                            // alert(place.address_components[0].long_name);
+
+                        });
+                    }
+                     //   google.maps.event.addDomListener(window, 'load', initialize);
+
+                </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3oIuW_OLa46h2aqQ9fk54zFrhg_A1Y6E"></script>*@
+
+                @*<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3oIuW_OLa46h2aqQ9fk54zFrhg_A1Y6E&libraries=places&callback=activatePlacesSearch">
+                </script>*@
+                @*<script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+                <script src="jquery.geocomplete.js"></script>*@
+
+            }

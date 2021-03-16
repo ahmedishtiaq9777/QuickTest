@@ -3,8 +3,13 @@ D:\Visual studio 2017\QuickTest\QuickTest\bin\Release\netcoreapp1.0\QuickTest.ru
 D:\Visual studio 2017\QuickTest\QuickTest\bin\Release\netcoreapp1.0\QuickTest.runtimeconfig.dev.json
 D:\Visual studio 2017\QuickTest\QuickTest\bin\Release\netcoreapp1.0\QuickTest.dll
 D:\Visual studio 2017\QuickTest\QuickTest\obj\Release\netcoreapp1.0\QuickTest.csproj.CoreCompileInputs.cache
-D:\Visual studio 2017\QuickTest\QuickTest\obj\Release\netcoreapp1.0\UserSecretsAssemblyInfo.cs
 D:\Visual studio 2017\QuickTest\QuickTest\obj\Release\netcoreapp1.0\QuickTest.AssemblyInfoInputs.cache
 D:\Visual studio 2017\QuickTest\QuickTest\obj\Release\netcoreapp1.0\QuickTest.AssemblyInfo.cs
 D:\Visual studio 2017\QuickTest\QuickTest\obj\Release\netcoreapp1.0\QuickTest.dll
+D:\Visual studio 2017\QuickTest\QuickTest\obj\Release\netcoreapp1.0\UserSecretsAssemblyInfo.cs
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Release\netcoreapp1.0\appsettings.Development.json
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Release\netcoreapp1.0\appsettings.json
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Release\netcoreapp1.0\bower.json
+D:\Visual studio 2017\QuickTest\QuickTest\bin\Release\netcoreapp1.0\bundleconfig.json
+D:\Visual studio 2017\QuickTest\QuickTest\obj\Release\netcoreapp1.0\QuickTest.genruntimeconfig.cache
 D:\Visual studio 2017\QuickTest\QuickTest\obj\Release\netcoreapp1.0\QuickTest.csprojAssemblyReference.cache

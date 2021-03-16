@@ -18,5 +18,10 @@ namespace QuickTest.Models.SellerViewModels
         public string Category { get; set; }
         public int? Quantity { get; set; }
         public double? AvgRating { get; set; }
+        public int OrderId { get; set; }
+        public string color { get; set; }
+        public string size { get; set; }
+        public int  specificationid { get; set; }
+        
     }
 }
